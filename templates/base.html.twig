@@ -59,7 +59,7 @@
                     <!-- Start Navigation List -->
                     <ul class="nav navbar-nav">
                         <li>
-                            <a href="index.html">
+                            <a href="{{ path('home') }}">
                                 Home <i class="fa fa-angle-down"></i>
                             </a>
                             <ul class="dropdown">
@@ -86,18 +86,19 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="about.html">
-                                Pages <i class="fa fa-angle-down"></i>
+                            <a href="{{ path('publication_index') }}">
+                                publication <i class="fa fa-angle-down"></i>
                             </a>
                             <ul class="dropdown">
                                 <li>
-                                    <a href="about.html">
-                                        About
+                                    <a href="{{ path('publication_index') }}">
+                                    gerer publication
+                                        
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="job-page.html">
-                                        Job Page
+                                    <a href="{{ path('category_publication_index') }}">
+                                        categories des publication
                                     </a>
                                 </li>
                                 <li>
@@ -224,13 +225,8 @@
             <!-- Mobile Menu Start -->
             <ul class="wpb-mobile-menu">
                 <li>
-                    <a href="index.html">Home</a>
-                    <ul>
-                        <li><a href="index.html">Home 1</a></li>
-                        <li><a href="index-02.html">Home 2</a></li>
-                        <li><a href="index-03.html">Home 3</a></li>
-                        <li><a href="index-04.html">Home 4</a></li>
-                    </ul>
+                    <a href="{{ path('home') }}">Home</a>
+  
                 </li>
                 <li>
                     <a href="about.html">Pages</a>
@@ -287,8 +283,8 @@
             </div>
             <h3 class="title-menu">All Pages</h3>
             <ul class="nav navmenu-nav">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="index-02.html">Home Page 2</a></li>
+                <li><a href="{{ path('home') }}">Home</a></li>
+                <li><a href="">Home Page 2</a></li>
                 <li><a href="index-03.html">Home Page 3</a></li>
                 <li><a href="index-04.html">Home Page 4</a></li>
                 <li><a href="about.html">About us</a></li>
@@ -369,7 +365,6 @@
                             <a href="#">Web Design</a>
                             <a href="#">Manager</a>
                             <a href="#">Programming</a>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -459,19 +454,7 @@
         <i class="ti-arrow-up"></i>
     </a>
 
-    <div id="loading">
-        <div id="loading-center">
-            <div id="loading-center-absolute">
-                <div class="object" id="object_one"></div>
-                <div class="object" id="object_two"></div>
-                <div class="object" id="object_three"></div>
-                <div class="object" id="object_four"></div>
-                <div class="object" id="object_five"></div>
-                <div class="object" id="object_six"></div>
-                <div class="object" id="object_seven"></div>
-                <div class="object" id="object_eight"></div>
-            </div>
-        </div>
+    
     </div>{% endblock %}
 {% block js %}
     <script type="text/javascript" src="assets/js/jquery-min.js"></script>

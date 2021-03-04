@@ -6,7 +6,8 @@ use App\Repository\PublicationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 /**
  * @ORM\Entity(repositoryClass=PublicationRepository::class)
  */
@@ -20,7 +21,11 @@ class Publication
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string
+     * @Assert\NotBlank()
+     * @Assert\Length(min="5")
+     * @Assert\Regex(pattern="/^[a-zA-Z\s]+$/")
+     * @ORM\Column(name="titre",type="string", length=255)
      */
     private $titre;
 
@@ -30,17 +35,29 @@ class Publication
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string A "Y-m-d H:i:s" formatted value
+     *@Assert\DateTime
+     * @ORM\Column(name="date",type="string", length=255)
      */
     private $date;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     *  @Assert\Range(
+     *      min = 0,
+     *      max = 5000,
+     *      notInRangeMessage = "must be between {{ min }} and {{ max }} vus to enter",
+     * )
+     * @ORM\Column(type="integer")
      */
     private $vus;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     *  @Assert\Range(
+     *      min = 0,
+     *      max = 50000,
+     *      notInRangeMessage = "must be between {{ min }} and {{ max }} likes to enter",
+     * )
+     * @ORM\Column(type="integer")
      */
     private $likes;
 
@@ -65,16 +82,12 @@ class Publication
      */
     private $pubEmployeur;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Employer::class, inversedBy="publications")
-     */
-    private $pubEmployer;
-
+    
     public function __construct()
     {
         $this->commantaires = new ArrayCollection();
         $this->pubEmployeur = new ArrayCollection();
-        $this->pubEmployer = new ArrayCollection();
+    
     }
 
     public function getId(): ?int
@@ -220,27 +233,5 @@ class Publication
         return $this;
     }
 
-    /**
-     * @return Collection|Employer[]
-     */
-    public function getPubEmployer(): Collection
-    {
-        return $this->pubEmployer;
-    }
-
-    public function addPubEmployer(Employer $pubEmployer): self
-    {
-        if (!$this->pubEmployer->contains($pubEmployer)) {
-            $this->pubEmployer[] = $pubEmployer;
-        }
-
-        return $this;
-    }
-
-    public function removePubEmployer(Employer $pubEmployer): self
-    {
-        $this->pubEmployer->removeElement($pubEmployer);
-
-        return $this;
-    }
+   
 }

@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\Employer;
+use App\Entity\employer;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -12,7 +12,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Employer[]    findAll()
  * @method Employer[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class EmployerRepository extends ServiceEntityRepository
+class employerRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

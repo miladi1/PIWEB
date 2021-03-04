@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\EmployerRepository;
+use App\Repository\employerRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=EmployerRepository::class)
+ * @ORM\Entity(repositoryClass=employerRepository::class)
  */
-class Employer
+class employer
 {
     /**
      * @ORM\Id
@@ -45,14 +45,11 @@ class Employer
     private $numero;
 
     /**
-     * @ORM\OneToMany(targetEntity=Reunion::class, mappedBy="rnEmployer")
+     * @ORM\OneToMany(targetEntity=Reunion::class, mappedBy="rnemployer")
      */
     private $reunions;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Publication::class, mappedBy="pubEmployer")
-     */
-    private $publications;
+    
 
     public function __construct()
     {
@@ -137,7 +134,7 @@ class Employer
     {
         if (!$this->reunions->contains($reunion)) {
             $this->reunions[] = $reunion;
-            $reunion->setRnEmployer($this);
+            $reunion->setRnemployer($this);
         }
 
         return $this;
@@ -147,38 +144,13 @@ class Employer
     {
         if ($this->reunions->removeElement($reunion)) {
             // set the owning side to null (unless already changed)
-            if ($reunion->getRnEmployer() === $this) {
-                $reunion->setRnEmployer(null);
+            if ($reunion->getRnemployer() === $this) {
+                $reunion->setRnemployer(null);
             }
         }
 
         return $this;
     }
 
-    /**
-     * @return Collection|Publication[]
-     */
-    public function getPublications(): Collection
-    {
-        return $this->publications;
-    }
-
-    public function addPublication(Publication $publication): self
-    {
-        if (!$this->publications->contains($publication)) {
-            $this->publications[] = $publication;
-            $publication->addPubEmployer($this);
-        }
-
-        return $this;
-    }
-
-    public function removePublication(Publication $publication): self
-    {
-        if ($this->publications->removeElement($publication)) {
-            $publication->removePubEmployer($this);
-        }
-
-        return $this;
-    }
+    
 }

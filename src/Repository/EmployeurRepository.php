@@ -2,21 +2,21 @@
 
 namespace App\Repository;
 
-use App\Entity\Employeur;
+use App\Entity\employeur;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Employeur|null find($id, $lockMode = null, $lockVersion = null)
- * @method Employeur|null findOneBy(array $criteria, array $orderBy = null)
- * @method Employeur[]    findAll()
- * @method Employeur[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method employeur|null find($id, $lockMode = null, $lockVersion = null)
+ * @method employeur|null findOneBy(array $criteria, array $orderBy = null)
+ * @method employeur[]    findAll()
+ * @method employeur[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class EmployeurRepository extends ServiceEntityRepository
+class employeurRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Employeur::class);
+        parent::__construct($registry, employeur::class);
     }
 
     // /**

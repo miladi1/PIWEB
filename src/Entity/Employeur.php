@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\EmployeurRepository;
+use App\Repository\employeurRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=EmployeurRepository::class)
+ * @ORM\Entity(repositoryClass=employeurRepository::class)
  */
-class Employeur
+class employeur
 {
     /**
      * @ORM\Id
@@ -40,22 +40,22 @@ class Employeur
     private $numero;
 
     /**
-     * @ORM\OneToMany(targetEntity=Opportunite::class, mappedBy="opEmployeur", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Opportunite::class, mappedBy="opemployeur", orphanRemoval=true)
      */
     private $opportunites;
 
     /**
-     * @ORM\OneToMany(targetEntity=Event::class, mappedBy="EventEmployeur")
+     * @ORM\OneToMany(targetEntity=Event::class, mappedBy="Eventemployeur")
      */
     private $events;
 
     /**
-     * @ORM\OneToMany(targetEntity=Reunion::class, mappedBy="rnEmployeur")
+     * @ORM\OneToMany(targetEntity=Reunion::class, mappedBy="rnemployeur")
      */
     private $reunions;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Publication::class, mappedBy="pubEmployeur")
+     * @ORM\ManyToMany(targetEntity=Publication::class, mappedBy="pubemployeur")
      */
     private $publications;
 
@@ -132,7 +132,7 @@ class Employeur
     {
         if (!$this->opportunites->contains($opportunite)) {
             $this->opportunites[] = $opportunite;
-            $opportunite->setOpEmployeur($this);
+            $opportunite->setOpemployeur($this);
         }
 
         return $this;
@@ -192,7 +192,7 @@ class Employeur
     {
         if (!$this->reunions->contains($reunion)) {
             $this->reunions[] = $reunion;
-            $reunion->setRnEmployeur($this);
+            $reunion->setRnemployeur($this);
         }
 
         return $this;
@@ -202,8 +202,8 @@ class Employeur
     {
         if ($this->reunions->removeElement($reunion)) {
             // set the owning side to null (unless already changed)
-            if ($reunion->getRnEmployeur() === $this) {
-                $reunion->setRnEmployeur(null);
+            if ($reunion->getRnemployeur() === $this) {
+                $reunion->setRnemployeur(null);
             }
         }
 
@@ -222,7 +222,7 @@ class Employeur
     {
         if (!$this->publications->contains($publication)) {
             $this->publications[] = $publication;
-            $publication->addPubEmployeur($this);
+            $publication->addPubemployeur($this);
         }
 
         return $this;
@@ -231,7 +231,7 @@ class Employeur
     public function removePublication(Publication $publication): self
     {
         if ($this->publications->removeElement($publication)) {
-            $publication->removePubEmployeur($this);
+            $publication->removePubemployeur($this);
         }
 
         return $this;

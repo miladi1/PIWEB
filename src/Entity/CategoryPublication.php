@@ -6,6 +6,7 @@ use App\Repository\CategoryPublicationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CategoryPublicationRepository::class)
@@ -20,7 +21,11 @@ class CategoryPublication
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+      * @var string
+     * @Assert\NotBlank()
+     * @Assert\Length(min="5")
+     * @Assert\Regex(pattern="/^[a-zA-Z\s]+$/")
+     * @ORM\Column(name="titre",type="string", length=255)
      */
     private $titre;
 
@@ -96,5 +101,9 @@ class CategoryPublication
         }
 
         return $this;
+    }
+    public function __toString(): string
+    {
+        return $this->titre;
     }
 }
