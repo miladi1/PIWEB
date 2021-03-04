@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Evenement{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    Create new Evenement
+                </h6>
+            </div>
+            <div class="card-body">
+
+
+                {{ include('evenement/_form.html.twig') }}
+
+                <a href="{{ path('evenement_index') }}">back to list</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

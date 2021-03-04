@@ -1,6 +1,8 @@
+
 <!DOCTYPE html>
 <html>
 <head>
+
     <<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -59,12 +61,12 @@
                     <!-- Start Navigation List -->
                     <ul class="nav navbar-nav">
                         <li>
-                            <a href="index.html">
+                            <a href="{{ path('home') }}">
                                 Home <i class="fa fa-angle-down"></i>
                             </a>
                             <ul class="dropdown">
                                 <li>
-                                    <a class="active" href="index.html">
+                                    <a class="active" href="{{ path('home') }}">
                                         Home 1
                                     </a>
                                 </li>
@@ -86,45 +88,21 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="about.html">
-                                Pages <i class="fa fa-angle-down"></i>
+                            <a href="{{ path('home') }}">
+                                evenement <i class="fa fa-angle-down"></i>
                             </a>
                             <ul class="dropdown">
                                 <li>
-                                    <a href="about.html">
-                                        About
+                                    <a href="{{ path('evenement_index') }}">
+                                        Gerer evenement
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="job-page.html">
-                                        Job Page
+                                    <a href="{{ path('type_event_index') }}">
+                                        Gerer type evenement
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="job-details.html">
-                                        Job Details
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="resume.html">
-                                        Resume Page
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="privacy-policy.html">
-                                        Privacy Policy
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="faq.html">
-                                        FAQ
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="pricing.html">
-                                        Pricing Tables
-                                    </a>
-                                </li>
+
                                 <li>
                                     <a href="contact.html">
                                         Contact
@@ -370,6 +348,7 @@
                             <a href="#">Manager</a>
                             <a href="#">Programming</a>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -459,20 +438,7 @@
         <i class="ti-arrow-up"></i>
     </a>
 
-    <div id="loading">
-        <div id="loading-center">
-            <div id="loading-center-absolute">
-                <div class="object" id="object_one"></div>
-                <div class="object" id="object_two"></div>
-                <div class="object" id="object_three"></div>
-                <div class="object" id="object_four"></div>
-                <div class="object" id="object_five"></div>
-                <div class="object" id="object_six"></div>
-                <div class="object" id="object_seven"></div>
-                <div class="object" id="object_eight"></div>
-            </div>
-        </div>
-    </div>{% endblock %}
+   {% endblock %}
 {% block js %}
     <script type="text/javascript" src="assets/js/jquery-min.js"></script>
     <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>

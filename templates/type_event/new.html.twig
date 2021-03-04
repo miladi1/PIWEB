@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New TypeEvent{% endblock %}
+
+{% block content %}
+    <h1>Create new TypeEvent</h1>
+
+
+    {{ form_start(form) }}
+
+    {{ form_widget(form) }}
+
+<div class="form-group">
+    <table border="0"   width="40%" >  <tr><td>  <label>Nom:</label>
+                {{ form_start(form.type)}}          {{ form_widget(form.type,{'attr':{'class':'form-control'}}) }}
+        <tr><td> <label>Prenom:</label>
+                {{ form_start(form.description)}}          {{ form_widget(form.description,{'attr':{'class':'form-control'}}) }}
+
+        <tr>
+
+    <button type="Submit" class="btn btn-primary">Valider</button>
+
+    <a href="{{ path('type_event_index') }}">back to list</a>
+        </tr>
+    </table></div>
+
+
+                {{ form_end(form) }}
+{% endblock %}
