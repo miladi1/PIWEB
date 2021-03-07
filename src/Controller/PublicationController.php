@@ -30,12 +30,16 @@ class PublicationController extends AbstractController
      */
     public function new(Request $request): Response
     {
-        $publication = new Publication();
+        $publication = new Publication(new \DateTime('today'));
         $form = $this->createForm(PublicationType::class, $publication);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $publication->setLikes(0);
+            $publication->setVus(0);
+            
+            $publication->setNombreCom(0);
             $entityManager->persist($publication);
             $entityManager->flush();
 

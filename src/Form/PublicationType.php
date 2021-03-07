@@ -6,7 +6,7 @@ use App\Entity\Publication;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 class PublicationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -14,13 +14,10 @@ class PublicationType extends AbstractType
         $builder
             ->add('titre')
             ->add('description')
-            ->add('date')
-            ->add('vus')
-            ->add('likes')
-            ->add('nombreCom')
-            ->add('Categorie')
-            ->add('commantaires')
-            ->add('pubEmployeur')
+            ->add('Date')
+            
+            
+            
         ;
     }
 

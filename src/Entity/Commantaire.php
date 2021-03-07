@@ -33,7 +33,7 @@ class Commantaire
     private $likes;
 
     /**
-     * @ORM\ManyToOne(targetEntity=publication::class, inversedBy="commantaires")
+     * @ORM\ManyToOne(targetEntity=Publication::class, inversedBy="commantaires")
      * @ORM\JoinColumn(nullable=false)
      */
     private $comPub;
@@ -79,15 +79,16 @@ class Commantaire
         return $this;
     }
 
-    public function getComPub(): ?publication
+    public function getComPub(): ?Publication
     {
         return $this->comPub;
     }
 
-    public function setComPub(?publication $comPub): self
+    public function setComPub(?Publication $comPub): self
     {
         $this->comPub = $comPub;
 
         return $this;
     }
 }
+

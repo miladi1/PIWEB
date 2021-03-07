@@ -8,12 +8,14 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+
+
 /**
  * @ORM\Entity(repositoryClass=PublicationRepository::class)
  */
 class Publication
 {
-    /**
+     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -23,23 +25,16 @@ class Publication
     /**
      * @var string
      * @Assert\NotBlank()
-     * @Assert\Length(min="5")
+     * @Assert\Length(min="3")
      * @Assert\Regex(pattern="/^[a-zA-Z\s]+$/")
      * @ORM\Column(name="titre",type="string", length=255)
      */
     private $titre;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255)++++++
      */
     private $description;
-
-    /**
-     * @var string A "Y-m-d H:i:s" formatted value
-     *@Assert\DateTime
-     * @ORM\Column(name="date",type="string", length=255)
-     */
-    private $date;
 
     /**
      *  @Assert\Range(
@@ -57,7 +52,7 @@ class Publication
      *      max = 50000,
      *      notInRangeMessage = "must be between {{ min }} and {{ max }} likes to enter",
      * )
-     * @ORM\Column(type="integer")
+      * @ORM\Column(type="integer")
      */
     private $likes;
 
@@ -82,14 +77,22 @@ class Publication
      */
     private $pubEmployeur;
 
-    
-    public function __construct()
+    /**
+     * @Assert\Date
+     * @ORM\Column(type="datetime")
+     */
+    private $date;
+  /**
+     * Publication constructor.
+     * @param $date
+     */
+    public function __construct($date)
     {
         $this->commantaires = new ArrayCollection();
         $this->pubEmployeur = new ArrayCollection();
-    
+        $this->date = $date;
     }
-
+ 
     public function getId(): ?int
     {
         return $this->id;
@@ -119,18 +122,7 @@ class Publication
         return $this;
     }
 
-    public function getDate(): ?string
-    {
-        return $this->date;
-    }
-
-    public function setDate(string $date): self
-    {
-        $this->date = $date;
-
-        return $this;
-    }
-
+    
     public function getVus(): ?string
     {
         return $this->vus;
@@ -233,5 +225,15 @@ class Publication
         return $this;
     }
 
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+    public function setDate(\DateTimeInterface $date): self
+    {
+        $this->date = $date ();
+
+        return $this;
+    }
    
 }
