@@ -22,7 +22,7 @@ class EvenementController extends AbstractController
     {
         return $this->render('evenement/index.html.twig', [
             'evenements' => $evenementRepository->findAll(),
-        ]);  
+        ]);
     }
 
     /**

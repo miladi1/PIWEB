@@ -24,6 +24,14 @@ class HomeController extends AbstractController
         ]);
     }
     /**
+     * @Route("/admin", name="admin")
+     */
+    public function admin(): Response
+    {
+
+        return $this->render('base2.html.twig');
+    }
+    /**
      * @Route("/post-job", name="post")
      */
     public function postjobaction()
