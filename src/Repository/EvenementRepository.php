@@ -14,11 +14,46 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class EvenementRepository extends ServiceEntityRepository
 {
+    function SearchNom($nsc)
+
+    {
+        return $this->createQueryBuilder('o')
+            ->where ('o.titre LIKE :nom_entreprise')
+            ->setParameter('nom_entreprise','%'.$nsc.'%')
+            ->getQuery()->getResult();
+        ;
+
+    }
+
+    public function findEntitiesByString($str)
+    {
+
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT p
+            FROM App\Entity\Evenement p
+            WHERE p.titre LIKE :str'
+
+        )->setParameter('str', $str);
+
+        // returns an array of Product objects
+        return $query->getResult();
+    }
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Evenement::class);
     }
+    public function findok()
+    {
+        $Query=$this->getEntityManager()
+            ->createQuery("SELECT l FROM App\Entity\Evenement l 
+        ");
 
+        return $Query->getResult();
+
+    }
     // /**
     //  * @return Evenement[] Returns an array of Evenement objects
     //  */

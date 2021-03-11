@@ -53,9 +53,18 @@ class HomeController extends AbstractController
         $form = $this->createForm(ParticipationType::class, $car);
         $form->handleRequest($request);
         $em = $this->getDoctrine()->getManager();
-        $em->persist($car);
-        $em->flush();
-        $this->addFlash('info', 'Created Successfully !');
-        return $this->redirectToRoute('evenement_index');
+        $x=$em->getRepository(Participation::class)->findOneBy(array('idEvent'=>$id));
+        if(empty($x)){
+            $em->persist($car);
+            $em->flush();
+            $this->addFlash('info', 'Created Successfully !');
+            return $this->redirectToRoute('home');
+        }
+        else {
+            return new Response( '<script>alert("Deja participé !");</script>' );
+
+        }
+
+
     }
 }
