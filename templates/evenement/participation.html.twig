@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Evenement{% endblock %}
+
+{% block content %}
+    <div class="container">
+    <br>
+    <br>
+    <br>
+    <h1>Evenement</h1>
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ evenement.id }}</td>
+        </tr>
+        <tr>
+            <th>Titre</th>
+            <td>{{ evenement.titre }}</td>
+        </tr>
+        <tr>
+            <th>Date_start</th>
+            <td>{{ evenement.dateStart ? evenement.dateStart|date('Y-m-d H:i:s') : '' }}</td>
+        </tr>
+        <tr>
+            <th>Date_end</th>
+            <td>{{ evenement.dateEnd ? evenement.dateEnd|date('Y-m-d H:i:s') : '' }}</td>
+        </tr>
+        <tr>
+            <th>NombrePar</th>
+            <td>{{ evenement.nombrePar }}</td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>{{ evenement.description }}</td>
+        </tr>
+        </tbody>
+    </table>
+        <a href="{{ path('participer',{'id': evenement.id }) }}" class="btn btn-common btn-rm">Participer</a><br>
+    <a href="{{ path('home') }}">back to list</a>
+
+
+    </div>
+{% endblock %}

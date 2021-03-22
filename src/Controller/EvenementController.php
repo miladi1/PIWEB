@@ -43,7 +43,9 @@ class EvenementController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $entityManager = $this->getDoctrine()->getManager();
+
             $entityManager->persist($evenement);
             $entityManager->flush();
 
@@ -53,6 +55,15 @@ class EvenementController extends AbstractController
         return $this->render('evenement/new.html.twig', [
             'evenement' => $evenement,
             'form' => $form->createView(),
+        ]);
+    }
+    /**
+     * @Route("/par/{id}", name="evenement_participation", methods={"GET"})
+     */
+    public function participer(Evenement $evenement): Response
+    {
+        return $this->render('evenement/participation.html.twig', [
+            'evenement' => $evenement,
         ]);
     }
 
@@ -103,7 +114,7 @@ class EvenementController extends AbstractController
     /**
      * @Route("/t/pdf", name="pdf")
      */
-    public function pdfAction()
+    public function pdfAction(Request $request)
     {
         $em= $this->getDoctrine()->getManager();
         $pro =$em->getRepository(Evenement::class)->findAll();
@@ -120,7 +131,7 @@ class EvenementController extends AbstractController
 
         // Retrieve the HTML generated in our twig file
         $html = $this->renderView(
-            '@evenement/pdf.html.twig',
+            'evenement/pdf.html.twig',
             array(
                 'events'=> $pro,'typeevent'=>$cat
             ));
@@ -172,7 +183,7 @@ class EvenementController extends AbstractController
     }
     public function getRealEntities($evenements){
         foreach ($evenements as $evenement){
-            $realEntities[$evenement->getId()] = [$evenement->getTitre(),$evenement->getDateStart(),$evenement->getDateEnd()];
+            $realEntities[$evenement->getId()] = [$evenement->getPhoto(),$evenement->getTitre()];
 
         }
         return $realEntities;

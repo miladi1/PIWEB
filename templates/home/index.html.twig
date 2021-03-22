@@ -58,13 +58,74 @@
     </section>
     <section class="find-job section">
         <div class="container">
+            <h2>Search A event !!</h2>
+
+            <div class="sidebar-search">
+
+                <div class="input-group custom-search-form">
+
+                    <input type="text" id="search" class="form-control" placeholder="Search here">
+                </div>
+                <!-- /input-group -->
+            </div>
+            <ul class="nav" id="side-menu">
+                <li>
+                    <a href="#"> Entities<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level" id="entitiesNav">
+                    </ul>
+                </li>
+            </ul><br><br><br><br>
+
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+            <script type="text/javascript">
+                jQuery(document).ready(function() {
+                    var searchRequest = null;
+                    $("#search").keyup(function() {
+                        var minlength = 1;
+                        var that = this;
+                        var value = $(this).val();
+                        var entitySelector = $("#entitiesNav").html('');
+                        if (value.length >= minlength ) {
+                            if (searchRequest != null)
+                                searchRequest.abort();
+                            searchRequest = $.ajax({
+                                type: "GET",
+                                url: "{{ path('ajax_search') }}",
+                                data: {
+                                    'q' : value
+                                },
+                                dataType: "text",
+                                success: function(msg){
+                                    //we need to check if the value is the same
+                                    if (value===$(that).val()) {
+                                        var result = JSON.parse(msg);
+                                        $.each(result, function(key, arr) {
+                                            $.each(arr, function(id, value) {
+                                                if (key === 'evenements') {
+                                                    if (id !== 'error') {
+                                                        entitySelector.append('<li><b>'+value[1]+'</b><a href="/evenement/par/'+id+'"><img src="/images/products/'+value[0]+'" style="width: 60px; height: 60px"/></a></li>');
+                                                    } else {
+                                                        entitySelector.append('<li class="errorLi">'+value+'</li>');
+                                                    }
+                                                }
+                                            });
+                                        });
+                                    }
+                                }
+                            });
+                        }
+                    });
+                });
+            </script>
             <h2 class="section-title">Hot events</h2>
             <div class="row">
                 <div class="col-md-12">
                     {% for evenement in evenements %}
+                        {% if evenement.photo %}
                         <div class="job-list">
                             <div class="thumb">
-                                <a href="job-details.html"><img src="assets/img/jobs/img-1.jpg" alt=""></a>
+                                <a href="{{ path('participer',{'id': evenement.id }) }}"><img src="/images/products/{{ evenement.photo }}" alt="" ></a>
                             </div>
                             <div class="job-list-content">
                                 <h4><a href="job-details.html">{{ evenement.titre }}</a></h4>
@@ -73,33 +134,22 @@
                                 <div class="job-tag">
                                     <div class="pull-left">
                                         <div class="meta-tag">
-                                            <span><a href="browse-categories.html"><i class="ti-brush"></i>{{ evenement.nombrePar }}</a></span>
+                                            <span><a href="{{ path('participer',{'id': evenement.id }) }}"><i class="ti-brush"></i>{{ evenement.nombrePar }}</a></span>
 
                                         </div>
                                     </div>
                                     <div class="pull-right">
                                         <a href="{{ path('participer',{'id': evenement.id }) }}" class="btn btn-common btn-rm">Participer</a>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        {% endif %}
                     {% endfor %}
                 </div>
 
-                <div class="col-md-12">
-                    <div class="showing pull-left">
-                        <a href="#">Showing <span>6-10</span> Of 24 Jobs</a>
-                    </div>
-                    <ul class="pagination pull-right">
-                        <li class="active"><a href="#" class="btn btn-common" ><i class="ti-angle-left"></i> prev</a></li>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li class="active"><a href="#" class="btn btn-common">Next <i class="ti-angle-right"></i></a></li>
-                    </ul>
-                </div>
+
             </div>
         </div>
     </section>

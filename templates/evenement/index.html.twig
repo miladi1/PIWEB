@@ -7,7 +7,8 @@
     <br>
     <br>
     <br>
-    <div >
+
+    <div>
         <div class="container">
 
             <h2>Search A Post !!</h2>
@@ -56,7 +57,7 @@
                                             $.each(arr, function(id, value) {
                                                 if (key === 'evenements') {
                                                     if (id !== 'error') {
-                                                        entitySelector.append('<li><b>'+value[0]+'</b><a href="/evenement/'+id+'">');
+                                                        entitySelector.append('<li><b>'+value[1]+'</b><a href="/evenement/'+id+'"><img src="/images/products/'+value[0]+'" style="width: 60px; height: 60px"/></a></li>');
                                                     } else {
                                                         entitySelector.append('<li class="errorLi">'+value+'</li>');
                                                     }
@@ -82,6 +83,7 @@
                 <th>Date_end</th>
                 <th>NombrePar</th>
                 <th>Description</th>
+                <th>Photo</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -94,6 +96,7 @@
                 <td>{{ evenement.dateEnd ? evenement.dateEnd|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ evenement.nombrePar }}</td>
                 <td>{{ evenement.description }}</td>
+                <td>dds</td>
                 <td>
                     <a href="{{ path('evenement_show', {'id': evenement.id}) }}">show</a>
                     <a href="{{ path('evenement_edit', {'id': evenement.id}) }}">edit</a>
@@ -107,8 +110,10 @@
         </tbody>
     </table>
 
-    <a href="{{ path('evenement_new') }}">Create new</a>
-    <a href="{{ path('pdf1') }}" class="btn btn-info btn-icon-text" >pdf</a>
+    <a href="{{ path('evenement_new') }}">Create new</a><br>
+    <a href="{{ path('pdf') }}" class="btn btn-info btn-icon-text" >pdf</a>
         </div>
     </div>
+    <br>
+    <br>
 {% endblock %}

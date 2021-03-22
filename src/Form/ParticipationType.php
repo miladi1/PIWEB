@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Participation;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,6 +16,8 @@ class ParticipationType extends AbstractType
             ->add('date')
             ->add('idEmployer')
             ->add('idEvent')
+            ->add('email')
+            ->add('participer',SubmitType::class)
         ;
     }
 

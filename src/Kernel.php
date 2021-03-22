@@ -8,6 +8,7 @@ use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\RouteCollectionBuilder;
+use Nomaya;
 
 class Kernel extends BaseKernel
 {
@@ -17,6 +18,8 @@ class Kernel extends BaseKernel
 
     public function registerBundles(): iterable
     {
+
+
         $contents = require $this->getProjectDir().'/config/bundles.php';
         foreach ($contents as $class => $envs) {
             if ($envs[$this->environment] ?? $envs['all'] ?? false) {
@@ -24,6 +27,7 @@ class Kernel extends BaseKernel
             }
         }
     }
+
 
     public function getProjectDir(): string
     {

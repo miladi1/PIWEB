@@ -3,6 +3,8 @@
 {% block title %}TypeEvent{% endblock %}
 
 {% block content %}
+<div class="content">
+    <div class="container-fluid">
     <br>
     <br>
     <br><br>
@@ -30,4 +32,6 @@
     <a href="{{ path('type_event_edit', {'id': type_event.id}) }}">edit</a>
 
     {{ include('type_event/_delete_form.html.twig') }}
+    </div>
+</div>
 {% endblock %}
