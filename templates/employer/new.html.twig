@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Employer{% endblock %}
+
+{% block content %}
+    {% if app.session.flashBag.has('info') %}
+    <div class="alert alert-success">
+        {% for msg in app.session.flashBag.get('info') %}
+        {{ msg }}
+        {% endfor %}
+    </div>
+{% endif %}
+    <br>
+    <br> <br>
+
+   <center> <h1>Create new Employer</h1></center>
+
+    {{ include('employer/_form.html.twig') }}
+
+
+{% endblock %}

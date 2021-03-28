@@ -49,6 +49,13 @@ class Participation
 
     private $email;
 
+
+
+    public function __construct()
+    {
+
+    }
+
     /**
      * @return string|null
      */

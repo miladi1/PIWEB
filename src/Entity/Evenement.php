@@ -63,7 +63,8 @@ class Evenement
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Employeur::class, inversedBy="evenements")
+     * @ORM\ManyToOne(targetEntity=Employeur::class)
+     *  @ORM\JoinColumn(nullable=false)
      */
     private $employeurEvent;
 

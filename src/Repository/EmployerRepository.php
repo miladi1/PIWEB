@@ -18,6 +18,25 @@ class EmployerRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Employer::class);
     }
+    function reche($data)
+    {
+        return $this->createQueryBuilder('employer')
+            ->Where('employer.name Like :name')
+            ->setParameter('name', '%'.$data.'%')
+            ->getQuery()->getResult();
+    }
+    function tri_asc()
+    {
+        return $this->createQueryBuilder('employer')
+            ->orderBy('employer.name ','ASC')
+            ->getQuery()->getResult();
+    }
+    function tri_desc()
+    {
+        return $this->createQueryBuilder('employer')
+            ->orderBy('employer.name ','DESC')
+            ->getQuery()->getResult();
+    }
 
     // /**
     //  * @return Employer[] Returns an array of Employer objects

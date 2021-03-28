@@ -1,0 +1,12 @@
+{{ form_start(form) }}
+   {{ form_row(form.nom, {'label': 'Nom de la Societé','attr': {'placeholder': 'Tapez Le Nom ...!'}}) }}
+{{ form_row(form.pass, {'label': 'Password','attr': {'placeholder': 'Password ...!'}}) }}
+{{ form_row(form.cp, {'label': 'Confirmer Password','attr': {'placeholder': 'Confirmer Password ...!'}}) }}
+{{ form_row(form.adresse, {'label': 'E-Mail','attr': {'placeholder': 'Example@gmail.com ...!'}}) }}
+{{ form_row(form.loca, {'label': 'Localisation','attr': {'placeholder': 'Tunis/Ariana/BenArous...!'}}) }}
+{{ form_row(form.numero, {'label': 'Numero','attr': {'placeholder': '+216'}}) }}
+{{ form_row(form.logo)}}
+
+{{ form_row(form.captcha)}}
+    <button class="btn btn-dark">{{ button_label|default('Sing In') }}</button>
+{{ form_end(form) }}

@@ -98,8 +98,8 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ path('type_event_index') }}">
-                                        Gerer type evenement
+                                    <a href="{{ path('post') }}">
+                                        la liste des participartion
                                     </a>
                                 </li>
 
@@ -194,8 +194,29 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right float-right">
+                        {% if app.user %}
+                            <style>
+                                .img{
+                                    width: 50px;
+                                    height: 50px;
+                                    background-size: cover;
+                                    display: block;
+                                    border-radius: 100px;
+                                    -webkit-border-radius: 100px;
+                                    -moz-border-radius: 100px;
+                                }
+                            </style>
+                            <li class="left"><a herf="{{ path('employer_profile') }}"> {{ app.user.name }}</a></li>
+                        <li class="left"><a href="{{ path('app_logout') }}"><i class="icon-logout"></i>  Log out</a></li>
+                        <li class="left"><a href="{{ path('Envoyer_Mail') }}"><i class="icon-logout"></i>  MAIL</a></li>
+                        <li><a herf="{{ path('employer_profile') }}"><img src="{{ asset("assets/img/") }}{{app.user.img}}" alt="" class="img"></a></li>
+
+
                         <li class="left"><a href="{{ path('post') }}"><i class="ti-pencil-alt"></i> Post A Job</a></li>
-                        <li class="right"><a href="my-account.html"><i class="ti-lock"></i>  Log In</a></li>
+                        {% endif %}
+                        {% if not app.user %}
+                        <li class="right"><a href="{{ path('app_login') }}"><i class="ti-lock"></i>  Log In</a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>

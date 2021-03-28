@@ -1,0 +1,15 @@
+{{ form_start(form) }}
+
+{{ form_row(form.name, {'label': 'Nom d\'Employer','attr': {'placeholder': 'Tapez Votre Name ...!'}}) }}
+{{ form_row(form.mdp, {'label': 'Mot de Passe','attr': {'placeholder': ' Mot de Passe ...!'}}) }}
+{{ form_row(form.confirm_password, {'label': 'Confirmation du Mot de Passe','attr': {'placeholder': 'Confirmer Votre Mot de Passe ...!'}}) }}
+{{ form_row(form.mail, {'label': 'Adresse Mail','attr': {'placeholder': 'Adresse E-Mail ...!'}}) }}
+{{ form_row(form.num, {'label': 'Numero de Telephone','attr': {'placeholder': '+216'}}) }}
+{{ form_row(form.localisation, {'label': 'Localisation','attr': {'placeholder': 'Votre Localisation ...!'}}) }}
+{{ form_row(form.categorie, {'label': 'Categorie','attr': {'placeholder': 'Tapez Votre Categorie D\Emploi ...'}}) }}
+{{ form_row(form.img) }}
+{{ form_row(form.captchaCode) }}
+
+
+    <button type="submit" class="btn btn-success">Inscription !</button>
+{{ form_end(form) }}

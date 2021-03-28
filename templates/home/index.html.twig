@@ -139,6 +139,7 @@
                                         </div>
                                     </div>
                                     <div class="pull-right">
+                                        {{ if path ('participe',{'id': evenement.id}) }}
                                         <a href="{{ path('participer',{'id': evenement.id }) }}" class="btn btn-common btn-rm">Participer</a>
 
                                     </div>

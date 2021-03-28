@@ -1,0 +1,62 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Employeur{% endblock %}
+
+{% block content %}
+    <br>
+    <br>
+    <style>
+        .img{
+            width: 80px;
+            height: 80px;
+            background-size: cover;
+            display: block;
+            border-radius: 100px;
+            -webkit-border-radius: 100px;
+            -moz-border-radius: 100px;
+        }
+    </style>
+    <br>
+    <br>
+    <br>
+    <h1>Employeur</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ employeur.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ employeur.nom }}</td>
+            </tr>
+            <tr>
+                <th>Pass</th>
+                <td>{{ employeur.pass }}</td>
+            </tr>
+            <tr>
+                <th>Numero</th>
+                <td>{{ employeur.numero }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ employeur.adresse }}</td>
+            </tr>
+            <tr>
+                <th>Loca</th>
+                <td>{{ employeur.loca }}</td>
+            </tr>
+            <tr>
+                <th>Logo</th>
+                <td><img src="{{ asset("assets/img/") }}{{employeur.logo}}" alt="" class="img"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('employeur_index') }}">back to list</a>
+
+    <a href="{{ path('employeur_edit', {'id': employeur.id}) }}">edit</a>
+
+    {{ include('employeur/_delete_form.html.twig') }}
+{% endblock %}

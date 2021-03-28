@@ -1,0 +1,97 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Employer index{% endblock %}
+
+{% block content %}
+    <style>
+        .img{
+            width: 60px;
+            height: 60px;
+            background-size: cover;
+            display: block;
+            border-radius: 100px;
+            -webkit-border-radius: 100px;
+            -moz-border-radius: 100px;
+        }
+    </style>
+    <br>
+    <br>
+    <br>
+   <center> <h2>Liste Des Employer </h2></center>
+<br>
+    <br>
+
+    <form method="post" action="{{ path('employer_r') }}">
+        <label></label>
+        <label>
+
+            <input PLACEHOLDER="SEARCH !" type="text" name="data" class="form-control">
+
+
+        </label>
+
+
+        <input type="submit" class="btn btn-success" value="FIND">
+
+    </form>
+    <br>
+    <br>
+
+    <form method="post" action="{{ path('trih') }}">
+        <label>
+            <select class="form-control" name="type">
+                <option>Croissant</option>
+                <option>Décroissant</option>
+            </select>
+        </label>
+        <input type="submit" class="btn btn-success" value="Trier!">
+    </form>
+    <br>
+    <br>
+
+
+    <table class="table" border="4">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Mdp</th>
+                <th>Mail</th>
+                <th>Num</th>
+                <th>Localisation</th>
+                <th>Categorie</th>
+                <th>Image</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for employer in employers %}
+            <tr>
+                <td>{{ employer.id }}</td>
+                <td>{{ employer.name }}</td>
+                <td>{{ employer.mdp }}</td>
+                <td>{{ employer.mail }}</td>
+                <td>{{ employer.num }}</td>
+                <td>{{ employer.localisation }}</td>
+                <td>{{ employer.categorie }}</td>
+                <td><img src="{{ asset("assets/img/") }}{{employer.img}}" alt="" class="img"></td>
+
+                <td>
+                    <a href="{{ path('employer_show', {'id': employer.id}) }}">show</a>
+                    <a href="{{ path('employer_edit', {'id': employer.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('employer_new') }}">Create new</a>
+    &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+    <a class="right" href="{{ path('employer_pdf') }}">Exporter PDF</a>
+
+{% endblock %}

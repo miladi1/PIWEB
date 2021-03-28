@@ -17,6 +17,7 @@ class ParticipationType extends AbstractType
             ->add('idEmployer')
             ->add('idEvent')
             ->add('email')
+
             ->add('participer',SubmitType::class)
         ;
     }

@@ -6,12 +6,21 @@ use App\Repository\EmployerRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=EmployerRepository::class)
+ * @UniqueEntity(
+ *     fields={"mail"},
+ *     message="L'email que vous avez indiqué est géja utiliser !"
+ * )
  */
-class Employer
+class Employer implements UserInterface
 {
+
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -22,103 +31,224 @@ class Employer
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $nom;
+    private $name;
+
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min="8" , minMessage="Votre Mot de Passe doit faire minimum 8 caractères")
+     * @Assert\EqualTo(propertyPath="confirm_password", message="Vous n'avez pas Tapez le meme Mot de Passe" )
      */
-    private $prenom;
+    private $mdp;
+
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\Email()
+     */
+    private $mail;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $age;
+    private $num;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $email;
+    private $localisation;
+
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity=Employeur::class, inversedBy="relation")
      */
-    private $numero;
+    private $employeur;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $categorie;
+
+
+    /**
+     * @Assert\EqualTo(propertyPath="mdp" , message="Vous n'avez pas Tapez le meme Mot de Passe" )
+     */
+
+    public $confirm_password;
+    protected $captchaCode;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $img;
 
 
 
+    public function __construct()
+    {
 
-
-
-
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNom(): ?string
+    public function getName(): ?string
     {
-        return $this->nom;
+        return $this->name;
     }
 
-    public function setNom(string $nom): self
+    public function setName(string $name): self
     {
-        $this->nom = $nom;
+        $this->name = $name;
 
         return $this;
     }
 
-    public function getPrenom(): ?string
+    public function getMdp(): ?string
     {
-        return $this->prenom;
+        return $this->mdp;
     }
 
-    public function setPrenom(string $prenom): self
+    public function setMdp(string $mdp): self
     {
-        $this->prenom = $prenom;
+        $this->mdp = $mdp;
 
         return $this;
     }
 
-    public function getAge(): ?int
+    public function getmail(): ?string
     {
-        return $this->age;
+        return $this->mail;
     }
 
-    public function setAge(int $age): self
-    {
-        $this->age = $age;
-
-        return $this;
-    }
 
     public function getEmail(): ?string
     {
-        return $this->email;
+        return $this->mail;
     }
 
-    public function setEmail(string $email): self
+    public function setmail(string $mail): self
     {
-        $this->email = $email;
+        $this->mail = $mail;
 
         return $this;
     }
 
-    public function getNumero(): ?int
+    public function setEmail(string $mail): self
     {
-        return $this->numero;
+        $this->mail = $mail;
+
+        return $this;
     }
 
-    public function setNumero(int $numero): self
+    public function getNum(): ?int
     {
-        $this->numero = $numero;
+        return $this->num;
+    }
+
+    public function setNum(int $num): self
+    {
+        $this->num = $num;
+
+        return $this;
+    }
+
+    public function getLocalisation(): ?string
+    {
+        return $this->localisation;
+    }
+
+    public function setLocalisation(string $localisation): self
+    {
+        $this->localisation = $localisation;
 
         return $this;
     }
 
 
+    public function getEmployeur(): ?Employeur
+    {
+        return $this->employeur;
+    }
 
+    public function setEmployeur(?Employeur $employeur): self
+    {
+        $this->employeur = $employeur;
 
+        return $this;
+    }
+
+    public function getCategorie(): ?string
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(string $categorie): self
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    public function eraseCredentials()
+    {
+    }
+
+    public function getSalt()
+    {
+    }
+
+    public function getRoles()
+    {
+        return ['ROLE_Employer'];
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->mdp;
+    }
+
+    public function setPassword($mdp): self
+    {
+        $this->mdp = $mdp;
+        return $this;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->mail;
+    }
+
+    public function setUsername(string $mail): self
+    {
+        $this->mail = $mail;
+
+        return $this;
+    }
+
+    public function getCaptchaCode()
+    {
+        return $this->captchaCode;
+    }
+
+    public function setCaptchaCode($captchaCode)
+    {
+        $this->captchaCode = $captchaCode;
+    }
+
+    public function getImg()
+    {
+        return $this->img;
+    }
+
+    public function setImg($img)
+    {
+        $this->img = $img;
+
+        return $this;
+    }
 
 
 

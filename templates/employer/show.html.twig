@@ -1,0 +1,67 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Employer{% endblock %}
+
+{% block content %}
+    <style>
+        .img{
+            width: 80px;
+            height: 80px;
+            background-size: cover;
+            display: block;
+            border-radius: 100px;
+            -webkit-border-radius: 100px;
+            -moz-border-radius: 100px;
+        }
+    </style>
+    <br>
+    <br>
+
+
+    <h1>Employer</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ employer.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ employer.name }}</td>
+            </tr>
+            <tr>
+                <th>Mdp</th>
+                <td>{{ employer.mdp }}</td>
+            </tr>
+            <tr>
+                <th>Mail</th>
+                <td>{{ employer.mail }}</td>
+            </tr>
+            <tr>
+                <th>Num</th>
+                <td>{{ employer.num }}</td>
+            </tr>
+            <tr>
+                <th>Localisation</th>
+                <td>{{ employer.localisation }}</td>
+            </tr>
+            <tr>
+                <th>Ctegorie</th>
+                <td>{{ employer.categorie }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>{{ employer.Img }}</td>
+                <td><img src="{{ asset("assets/img/") }}{{employer.img}}" alt="" class="img"></td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <a href="{{ path('employer_index') }}">back to list</a>
+
+    <a href="{{ path('employer_edit', {'id': employer.id}) }}">edit</a>
+
+    {{ include('employer/_delete_form.html.twig') }}
+{% endblock %}

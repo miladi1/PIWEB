@@ -6,11 +6,18 @@ use App\Repository\EmployeurRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=EmployeurRepository::class)
+ * * @UniqueEntity(
+ *     fields={"adresse"},
+ *     message="L'email que vous avez indiqué est géja utiliser !"
+ * )
  */
-class Employeur
+class Employeur implements UserInterface
 {
     /**
      * @ORM\Id
@@ -26,38 +33,61 @@ class Employeur
 
     /**
      * @ORM\Column(type="string", length=255)
+     * * @Assert\Length(min="8" , minMessage="Votre Mot de Passe doit faire minimum 8 caractères")
+     * @Assert\EqualTo(propertyPath="cp", message="Vous n'avez pas Tapez le meme Mot de Passe" )
      */
-    private $prenom;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $email;
+    private $pass;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Positive(message="le contenu doit être positive")
+     * @Assert\Length(min="8")
+     *
      */
     private $numero;
 
     /**
-     * @ORM\OneToMany(targetEntity=Opportunite::class, mappedBy="opEmployeur", orphanRemoval=true)
+     * @ORM\Column(type="string", length=255)
+     * @Assert\Email()
      */
-    private $opportunites;
+    private $adresse;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $loca;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Employer::class, mappedBy="employeur")
+     */
+    private $relation;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $logo;
+    /**
+     *@Assert\EqualTo(propertyPath="pass" , message="Vous n'avez pas Tapez le meme Mot de Passe" )
+     */
+    public $cp;
 
 
     /**
-     * @ORM\OneToMany(targetEntity=Evenement::class, mappedBy="employeurEvent")
+     * @return mixed
      */
-    private $evenements;
+
+
+
+
+    protected $captcha;
+
+
 
     public function __construct()
     {
-        $this->opportunites = new ArrayCollection();
+        $this->relation = new ArrayCollection();
 
-        $this->evenements = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -77,26 +107,14 @@ class Employeur
         return $this;
     }
 
-    public function getPrenom(): ?string
+    public function getPass(): ?string
     {
-        return $this->prenom;
+        return $this->pass;
     }
 
-    public function setPrenom(string $prenom): self
+    public function setPass(string $pass): self
     {
-        $this->prenom = $prenom;
-
-        return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
+        $this->pass = $pass;
 
         return $this;
     }
@@ -113,75 +131,116 @@ class Employeur
         return $this;
     }
 
-    /**
-     * @return Collection|Opportunite[]
-     */
-    public function getOpportunites(): Collection
+    public function getAdresse(): ?string
     {
-        return $this->opportunites;
+        return $this->adresse;
+    }
+    public function getEmail(): ?string
+    {
+        return $this->adresse;
+    }
+    public function setEmail(string $adresse): self
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+    public function setAdresse(string $adresse): self
+    {
+        $this->adresse = $adresse;
+
+        return $this;
     }
 
-    public function addOpportunite(Opportunite $opportunite): self
+    public function getLoca(): ?string
     {
-        if (!$this->opportunites->contains($opportunite)) {
-            $this->opportunites[] = $opportunite;
-            $opportunite->setOpEmployeur($this);
+        return $this->loca;
+    }
+
+    public function setLoca(string $loca): self
+    {
+        $this->loca = $loca;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Employer[]
+     */
+    public function getRelation(): Collection
+    {
+        return $this->relation;
+    }
+
+    public function addRelation(Employer $relation): self
+    {
+        if (!$this->relation->contains($relation)) {
+            $this->relation[] = $relation;
+            $relation->setEmployeur($this);
         }
 
         return $this;
     }
 
-    public function removeOpportunite(Opportunite $opportunite): self
+    public function removeRelation(Employer $relation): self
     {
-        if ($this->opportunites->removeElement($opportunite)) {
+        if ($this->relation->removeElement($relation)) {
             // set the owning side to null (unless already changed)
-            if ($opportunite->getOpEmployeur() === $this) {
-                $opportunite->setOpEmployeur(null);
+            if ($relation->getEmployeur() === $this) {
+                $relation->setEmployeur(null);
             }
         }
 
         return $this;
     }
-
-
-
-
-
-
-
-
-
-
-
-    /**
-     * @return Collection|Evenement[]
-     */
-    public function getEvenements(): Collection
+    public function eraseCredentials(){}
+    public function getSalt(){}
+    public function getRoles()
     {
-        return $this->evenements;
+        return ['ROLE_Employeur'];
+    }
+    public function getPassword(): ?string
+    {
+        return $this->pass;
+    }
+    public function setPassword($pass): self
+    {
+        $this->pass = $pass;
+        return $this;
     }
 
-    public function addEvenement(Evenement $evenement): self
+    public function getUsername(): ?string
     {
-        if (!$this->evenements->contains($evenement)) {
-            $this->evenements[] = $evenement;
-            $evenement->setEmployeurEvent($this);
-        }
+        return $this->adresse;
+    }
+    public function setUsername(string $adresse): self
+    {
+        $this->adresse = $adresse;
 
         return $this;
     }
 
-    public function removeEvenement(Evenement $evenement): self
+    public function getLogo()
     {
-        if ($this->evenements->removeElement($evenement)) {
-            // set the owning side to null (unless already changed)
-            if ($evenement->getEmployeurEvent() === $this) {
-                $evenement->setEmployeurEvent(null);
-            }
-        }
+        return $this->logo;
+    }
+
+    public function setLogo($logo): self
+    {
+        $this->logo = $logo;
 
         return $this;
     }
+    public function getCaptcha()
+    {
+        return $this->captcha;
+    }
+
+    public function setCaptcha($captcha)
+    {
+        $this->captcha = $captcha;
+    }
+
     public function __toString(): string
     {
         return $this->nom;
