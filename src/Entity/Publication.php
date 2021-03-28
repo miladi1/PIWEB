@@ -15,7 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
  */
 class Publication
 {
-     /**
+    /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -37,7 +37,7 @@ class Publication
     private $description;
 
     /**
-     *  @Assert\Range(
+     * @Assert\Range(
      *      min = 0,
      *      max = 5000,
      *      notInRangeMessage = "must be between {{ min }} and {{ max }} vus to enter",
@@ -47,12 +47,12 @@ class Publication
     private $vus;
 
     /**
-     *  @Assert\Range(
+     * @Assert\Range(
      *      min = 0,
      *      max = 50000,
      *      notInRangeMessage = "must be between {{ min }} and {{ max }} likes to enter",
      * )
-      * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer")
      */
     private $likes;
 
@@ -78,21 +78,28 @@ class Publication
     private $pubEmployeur;
 
     /**
+     * @var string
      * @Assert\Date
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(name="date" ,type="string" ,length=255)
      */
     private $date;
-  /**
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $img;
+
+    /**
      * Publication constructor.
      * @param $date
      */
-    public function __construct($date)
+    public function __construct()
     {
         $this->commantaires = new ArrayCollection();
         $this->pubEmployeur = new ArrayCollection();
-        $this->date = $date;
+
     }
- 
+
     public function getId(): ?int
     {
         return $this->id;
@@ -122,25 +129,25 @@ class Publication
         return $this;
     }
 
-    
-    public function getVus(): ?string
+
+    public function getVus(): ?int
     {
         return $this->vus;
     }
 
-    public function setVus(string $vus): self
+    public function setVus(int $vus): self
     {
         $this->vus = $vus;
 
         return $this;
     }
 
-    public function getLikes(): ?string
+    public function getLikes(): ?int
     {
         return $this->likes;
     }
 
-    public function setLikes(string $likes): self
+    public function setLikes(int $likes): self
     {
         $this->likes = $likes;
 
@@ -225,15 +232,62 @@ class Publication
         return $this;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getDate(): ?string
     {
         return $this->date;
     }
-    public function setDate(\DateTimeInterface $date): self
+
+    public function setDate($date): self
     {
-        $this->date = $date ();
+
+        $this->date = $date;
 
         return $this;
     }
-   
+
+    public function getImg()
+    {
+        return $this->img;
+    }
+
+    public function setImg($img)
+    {
+        $this->img = $img;
+
+        return $this;
+    }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

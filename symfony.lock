@@ -78,6 +78,9 @@
     "doctrine/sql-formatter": {
         "version": "1.1.1"
     },
+    "dompdf/dompdf": {
+        "version": "v1.0.2"
+    },
     "egulias/email-validator": {
         "version": "2.1.25"
     },
@@ -92,6 +95,12 @@
             "version": "2.0",
             "ref": "8eb1cd0962ded6a6d6e1e5a9b6d3e888f9f94ff6"
         }
+    },
+    "knplabs/knp-components": {
+        "version": "v3.0.2"
+    },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v5.4.2"
     },
     "laminas/laminas-code": {
         "version": "3.4.1"

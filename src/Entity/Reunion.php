@@ -67,12 +67,12 @@ class Reunion
         return $this;
     }
 
-    public function getDate(): ?string
+    public function getDate(): ?datetime
     {
         return $this->date;
     }
 
-    public function setDate(string $date): self
+    public function setDate(datetime $date): self
     {
         $this->date = $date;
 

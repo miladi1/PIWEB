@@ -3,9 +3,9 @@
 {% block title %}New Commantaire{% endblock %}
 
 {% block content %}
-   <center> <h1>Create new Commantaire</h1> </center>
+   <center> <h1>Leave a comment</h1> </center>
 
     {{ include('commantaire/_form.html.twig') }}
 
-    <a href="{{ path('commantaire_index') }}">back to list</a>
+    <a href="{{ path('commantaire_index') }}">see other comments</a>
 {% endblock %}

@@ -1,0 +1,30 @@
+{% block content %}
+    <center><h1>Listes des publications</h1></center>
+<table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Titre</th>
+            <th>Description</th>
+            <th>Categorie</th>
+            <th>Vus</th>
+            <th>Likes</th>
+            <th>NombreCom</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+<tbody>
+{% for publication in publications %}
+    <tr>
+        <td>{{ publication.id }}</td>
+        <td>{{ publication.titre }}</td>
+        <td>{{ publication.description }}</td>
+        <td>{{ publication.Categorie }}</td>
+        <td>{{ publication.vus }}</td>
+        <td>{{ publication.likes }}</td>
+        <td>{{ publication.nombreCom }}</td>
+    </tr>
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}

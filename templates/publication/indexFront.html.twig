@@ -1,0 +1,136 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Publication{% endblock %}
+
+{% block content %}
+<script src="{{ asset("https://kit.fontawesome.com/95a797916d.js") }}" crossorigin="anonymous"></script>
+
+<body>
+<!-- Page Header Start -->
+<div class="page-header" style="background: url(assets/img/banner1.jpg);">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb-wrapper">
+                    <h2 class="product-title">Browse Job</h2>
+                    <ol class="breadcrumb">
+                        <li><a href="{{ path('home') }}"> Home </a></li>
+
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page Header End -->
+
+<!-- Job Browse Section Start -->
+<section class="job-browse section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 col-sm-8">
+                {% for publication in publications %}
+                <div class="job-list">
+
+                    <div class="thumb">
+                        <a href="job-details.html"><img src="{{ asset("assets/img/") }}{{publication.img}}" alt="" , height ="350px", width="800"></a><br><br><br><br>
+                    </div>
+                    <div class="job-list-content">
+                        <h4><a href="job-details.html">{{ publication.titre }}</a></h4>
+                        <p>{{ publication.description }}</p>
+                        <div class="job-tag">
+                            <div class="pull-left">
+                                <div class="meta-tag">
+                                    <span><div>
+    <span> <i class="fa fa-star fa-2x" style="color:#b300ff" data-indexe="0"></i></span>
+    <span> <i class="fa fa-star fa-2x" style="color:#b300ff" data-indexe="1"></i></span>
+    <span> <i class="fa fa-star fa-2x" style="color:#b300ff" data-indexe="2"></i></span>
+    <span> <i class="fa fa-star fa-2x" style="color:#b300ff" data-indexe="3"></i></span>
+    <span> <i class="fa fa-star fa-2x" style="color:#b300ff" data-indexe="4"></i></span>
+</div></span>
+                                    <span><i class="ti-link"></i>{{ publication.likes }}</span>
+                                    <span><i class="ti-time"></i>{{ publication.Date }}</span>
+                                </div>
+                            </div>
+                            <div class="pull-right">
+                                <div class="icon">
+                                    <i class="ti-heart"></i>
+                                </div>
+                                <div class="btn btn-common btn-rm">More Detail</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {{ knp_pagination_render(publications) }}
+             <ul> <li> <a href="{{ path('publication_new') }}">Create new</a></li></ul>
+                <!-- Start Pagination -->
+
+
+                <!-- End Pagination -->
+            </div>
+            <div class="col-md-3 col-sm-4">
+                <aside>
+                    <div class="sidebar">
+                        <div class="inner-box">
+                            <h3>Recherche</h3>
+                            <ul class="cat-list">
+                                <li>
+                                    <form method="post" action="{{ path('publication_rechercheFront') }}">
+
+
+                                        <div class="row">
+                                            <div class="col-md-8 col-sm-6">
+
+                                                    <input class="form-control" PLACEHOLDER="SEARCH !" type="text" name="data">
+
+                                            </div>
+                                            <div class="col-md-1 col-sm-6">
+                                                <button type="submit" class="btn btn-search-icon" value="FIND"><i class="ti-search"></i></button>
+                                            </div>
+                                        </div>
+
+
+                                    </form>
+                                </li>
+                                <li>
+                                    <a href="#">Techonologies <span class="num-posts">4,256 Jobs</span></a>
+                                </li>
+                                <li>
+
+                                </li>
+                                <li>
+                                    <a href="#">Science <span class="num-posts">4,256 Jobs</span></a>
+                                </li>
+                                <li>
+                                    <a href="#">Education Training <span class="num-posts">4,560 Jobs</span></a>
+                                </li>
+                                <li>
+                                    <a href="#">Logistics <span class="num-posts">3,256 Jobs</span></a>
+                                </li>
+                                <li>
+                                    <a href="#">Food Services <span class="num-posts">1,256 Jobs</span></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Footer Section Start -->
+
+<!-- Footer Section End -->
+
+<!-- Go To Top Link -->
+<a href="#" class="back-to-top">
+    <i class="ti-arrow-up"></i>
+</a>
+
+
+
+<!-- Main JS  -->
+{% endblock %}

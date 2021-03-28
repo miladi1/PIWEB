@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use App\Repository\CommantaireRepository;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=CommantaireRepository::class)
  */
@@ -23,7 +23,9 @@ class Commantaire
     private $contenu;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string
+     * @Assert\Date
+     * @ORM\Column(name="date" ,type="string" ,length=255)
      */
     private $date;
 
@@ -60,8 +62,9 @@ class Commantaire
         return $this->date;
     }
 
-    public function setDate(string $date): self
+    public function setDate($date): self
     {
+
         $this->date = $date;
 
         return $this;
@@ -90,5 +93,6 @@ class Commantaire
 
         return $this;
     }
-}
 
+
+}

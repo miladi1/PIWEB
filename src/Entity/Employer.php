@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\employerRepository;
+use App\Repository\EmployerRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=employerRepository::class)
+ * @ORM\Entity(repositoryClass=EmployerRepository::class)
  */
 class employer
 {
