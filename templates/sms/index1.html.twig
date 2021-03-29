@@ -1,0 +1,75 @@
+
+
+
+<html>
+
+<head>
+<meta charset="UTF-8"/>
+<script language="javascript">
+
+    
+function envoyer(){
+const url="https://api.twilio.com/2010-04-01/Accounts/ACe0b24554430af176a4b4950be4f5f5d0/Messages.json";
+const auth="ACe0b24554430af176a4b4950be4f5f5d0:b8c0f37ab8089332014336bde641b52e";
+
+const message=document.getElementById("message").value;
+const numTel=document.getElementById("mobile").value;
+
+const msg=encodeURI(message);
+const num=encodeURI(numTel);
+ 
+
+const myHeader=new Headers({
+'Content-Type':'application/x-www-form-urlencoded',
+'Authorization':'Basic '+btoa(auth)
+
+});
+const init={
+method:'POST',
+headers : myHeader ,
+mode:'cors',
+body:"To="+num+"&From=+19255216485&Body="+msg
+
+
+}
+
+fetch(url,init)
+.then(Response=>console.log(Response))
+.catch(error=>console.log(console.error));
+}
+</script>
+ </head>
+
+<body>
+
+  
+ 
+ <div id="app">
+    <form action="{{path('sms')}}">
+<h1>envoie message</h1>
+                        <table border="1" >
+                            <tr>
+                                <td><label>Enter Mobile Number</label></td>
+                                <td><input type="text" id="mobile" value="+216"></td>
+                           
+                            </tr>
+<tr>
+<td><label>Enter message</label></td>
+<td><input type="text"  id="message" ></td>
+                            </tr>
+               
+<tr>
+
+<td><input type="submit" value="Send Message" onclick="envoyer();"></td>
+ 
+                        </div>
+                        </div>
+</div>
+ 
+
+</body> 
+
+    </html> 
+ 
+
+

@@ -28,6 +28,9 @@ class Employer implements UserInterface
      */
     private $id;
 
+
+
+
     /**
      * @ORM\Column(type="string", length=255)
      */
@@ -155,6 +158,7 @@ class Employer implements UserInterface
         return $this;
     }
 
+
     public function getLocalisation(): ?string
     {
         return $this->localisation;
@@ -195,9 +199,14 @@ class Employer implements UserInterface
     public function eraseCredentials()
     {
     }
+    public function getIdd()
+    {
+     return $this->id;
+    }
 
     public function getSalt()
     {
+
     }
 
     public function getRoles()

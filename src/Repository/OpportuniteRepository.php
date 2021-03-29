@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\Opportunite;
+use App\Entity\opportunite;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -47,4 +47,20 @@ class OpportuniteRepository extends ServiceEntityRepository
         ;
     }
     */
+    function SearchNom($nsc)
+
+    {
+return $this->createQueryBuilder('o')
+->where ('o.nom_entreprise LIKE :nom_entreprise')
+->setParameter('nom_entreprise','%'.$nsc.'%')
+->getQuery()->getResult();
+;
+
+
+
+
+    
+
+
+    }
 }

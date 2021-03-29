@@ -1,0 +1,73 @@
+
+
+  
+ {% extends 'base2.html.twig' %}
+ {%block content %}
+
+ <div class="content">
+    <div class="container-fluid">
+        <h2>Liste des opportunites</h2>
+   <h4><a href="{{path('aff')}}"><div class="p-1 mb-2 bg-primary text-white">Ajouter Offres</div></a></h4>   
+
+        <form action="{{path('recherche')}}">
+
+        
+
+    
+                         <label for="name">
+                        Rechercher:</label>
+
+     
+                    <input type="text"   class="form-control" id="name" name="search" required>
+              <button type="Submit" class="btn btn-primary"   >Rechercher</button>
+              
+                </div>   
+
+                        <table border="1" >
+                            <tr>
+                                <td><h4>    ID</h4></td>
+                                
+                                <td><h4>Titre</h4></td>
+                                <td><h4>Lieu</h4></td>
+                                <td><h4>Description</h4></td>
+                                <td><h4>Nom_entreprise</h4></td>
+                               
+                                <td><h4>Taille_entreprise</h4></td>
+                                <td><h4>poste</h4></td>
+                                <td><h4>Media</h4></td>
+                                <td><h4>Nombre recrutement</h4></td>
+                                 <td><h4>Logo</h4></td>
+                               
+                            </tr>
+                            {% for f in opp %}
+                                <tr>
+                                    <td>{{f.id }}  </td>
+                                 
+                                    <td>{{f.titre }}  </td>
+                                    <td>{{ f.lieu }}</td>
+                                    <td>{{f.description }}  </td>
+                                    <td>{{ f.nomentreprise }}</td>
+                                    <td>{{ f.tailleentreprise }}</td>
+                                    <td>{{f.poste }}  </td>
+                                      <td>{{f.media }}  </td>
+                                             <td>{{f.nombrerecrutement }}  </td>
+                                      <td><img src="{{asset('/images/~ f.logo')}}">  </td>
+                                    
+                                    <td><button><a href="{{ path('del',{'id':f.id}) }}">delete</a> </button></td>
+                                    <td> <button><a href="{{ path('update',{'id':f.id}) }}">Update</a></button> </td>
+                                </tr>
+                            {% endfor %}
+
+                        </table>
+                        </div>
+                        </div>
+
+ 
+
+{% endblock %}
+
+
+     
+ 
+
+

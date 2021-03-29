@@ -12,23 +12,26 @@ use App\Form\ParticipationType;
 use App\Repository\CategoryPublicationRepository;
 use App\Repository\EmployerRepository;
 use App\Repository\EvenementRepository;
+use App\Repository\OpportuniteRepository;
 use App\Repository\ParticipationRepository;
 use phpDocumentor\Reflection\Types\This;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class HomeController extends AbstractController
 {
     /**
      * @Route("/", name="home")
      */
-    public function index(EvenementRepository $evenementRepository): Response
+    public function index(EvenementRepository $evenementRepository,OpportuniteRepository $repository): Response
     {
+        $opp=$repository->findAll();
 
         return $this->render('home/index.html.twig', [
-            'evenements' => $evenementRepository->findAll(),
+            'evenements' => $evenementRepository->findAll(),'can'=>$opp
         ]);
     }
     /**
@@ -42,7 +45,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/post-job", name="post")
      */
-    public function postjobaction(ParticipationRepository $participationRepository ,EvenementRepository $evenementRepository,EmployerRepository $employerRepository)
+    public function postjobaction(ParticipationRepository $participationRepository ,EmployerRepository $employerRepository,OpportuniteRepository $repository)
     {
 
         $car = new Participation();
@@ -74,21 +77,22 @@ class HomeController extends AbstractController
 
         $car = new Participation();
 
-
         $car->setDate(date('H:i:s \O\n d/m/Y'));
-        $car->setIdEmployer(1);
+        $car->setIdEmployer($this->getUser()->getId());
         $car->setIdEvent($id);
+        $car->setEmail($this->getUser()->getUsername());
 
         $form = $this->createForm(ParticipationType::class, $car);
         $form->handleRequest($request);
         $em = $this->getDoctrine()->getManager();
+        $y = $em->getRepository(Participation::class)->findOneBy(array('idEmployer'=>$this->getUser()->getId()));
         $x = $em->getRepository(Participation::class)->findOneBy(array('idEvent' => $id));
         $event = $em->getRepository(Evenement::class)->find($car->getIdEvent());
         $userr = $em->getRepository(Employer::class)->find($car->getIdEmployer());
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            if (empty($x)) {
+            if (empty($x && $y)) {
 
                 $em->persist($car);
                 $em->flush();
@@ -119,7 +123,7 @@ class HomeController extends AbstractController
                 $mailer->send($message);
 
                 $this->addFlash('info', 'Created Successfully !');
-                return $this->render('home/newpar.html.twig', ['participationForm' => $form->createView()]);
+                return $this->redirectToRoute('home', ['participationForm' => $form->createView()]);
             } else {
                 return new Response('<script>alert("Deja participé !");</script>');
             }

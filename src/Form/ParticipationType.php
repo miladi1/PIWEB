@@ -14,8 +14,7 @@ class ParticipationType extends AbstractType
     {
         $builder
             ->add('date')
-            ->add('idEmployer')
-            ->add('idEvent')
+
             ->add('email')
 
             ->add('participer',SubmitType::class)

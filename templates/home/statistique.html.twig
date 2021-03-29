@@ -1,0 +1,78 @@
+  
+ {% extends 'base2.html.twig' %}
+ {%block content %}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body><h1>Chart1.js</h1>
+
+<div style="width: 75%">
+<canvas id="myChart"></canvas>
+</div>
+
+                        {% set nbAcc=0 %}
+                         
+                        {% set nbEnc=0 %}
+                        {% set Refu=0 %}
+
+                         {% for f in cand %}
+                         {% if 'Accepter' in f.etat %}
+                         {% set  nbAcc=nbAcc+1 %}
+                        
+                        {%endif %}
+                        {% if 'En cours' in f.etat %}
+                         {% set  nbEnc=nbEnc+1 %}
+                         {%endif %}
+
+                         {% if 'Refuser' in f.etat %}
+                         {% set  Refu=Refu+1 %}
+                         {%endif %}
+   {% endfor %}
+   
+<script>
+Chart.defaults.global.title.display=true;
+</script>
+
+<script language="javascript">
+var ctx = document.getElementById('myChart').getContext('2d');
+var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'line',
+
+    // The data for our dataset
+    data: {
+        labels: ['','le nombre accepter','le nombre Encours', 'le nombre Refuser'],
+        datasets: [{
+            label: 'Nombres Totales des candidats: {{cand|length}}',
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 101)',
+            data: [0,{{nbAcc}},{{nbEnc}}, {{Refu}}]
+        }]
+    },
+
+    // Configuration options go here
+    options: {
+title:{
+
+    text:"Listes des candidats "
+}
+
+    }
+});
+</script>
+
+  
+
+ 
+</body>
+</html>      
+{% endblock %}

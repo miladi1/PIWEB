@@ -1,0 +1,63 @@
+
+
+  
+ {% extends 'base2.html.twig' %}
+ {%block content %}
+
+ <div class="content">
+    <div class="container-fluid">
+        <h2>Liste des Candidates</h2>
+               <h4><a href="{{path('condidature')}}">  <div class="p-1 mb-2 bg-primary text-white">Ajouter Candidature</div></a></h4>     
+ 
+   <br>
+   
+       </div>
+                        <table border="1" >
+                            <tr>
+                                <td><h4>    ID</h4></td>
+                                
+                                <td><h4>Titre</h4></td>
+                                <td><h4>Fonction</h4></td>
+                                <td><h4>TypeContrat</h4></td>
+                                <td><h4>ModeSalaire</h4></td>
+                               
+                                <td><h4>Periode</h4></td>
+                                <td><h4>annuel_mois</h4></td>
+                               
+                                <td><h4>Horaires</h4></td>
+                           
+                            </tr>
+                            {% for f in cand %}
+                                <tr>
+                                    <td>{{f.id }}  </td>
+                                 
+                                    <td>{{f.Titre.titre}}  </td>
+                                     <td>{{f.fonction }}  </td>
+                                 
+                                    <td>{{f.typecontrat}}  </td>
+                                    <td>{{f.modesalaire}}  </td>
+                                     <td>{{f.periode}}  </td>
+                                     <td>{{f.annuelmois }}  </td>
+                                 
+                                   
+                                     <td>{{f.horaires}}  </td>
+                                      
+
+                                    <td><button><a href="{{ path('delete',{'id':f.id}) }}">delete</a> </button></td>
+                                    <td> <button><a href="{{ path('updat',{'id':f.id}) }}">Update</a></button> </td>
+                                </tr>
+                            {% endfor %}
+
+                        </table>
+                        
+                      
+
+ 
+
+{% endblock %}
+
+
+     
+ 
+
+

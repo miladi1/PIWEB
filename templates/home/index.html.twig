@@ -1,61 +1,73 @@
 {% extends 'base.html.twig' %}
 {% block content %}
-    <section id="intro" class="section-intro">
+     <section id="intro" class="section-intro">
         <div class="search-container">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
                         <h1>Find the job that fits your life</h1><br><h2>More than <strong>12,000</strong> jobs are waiting to Kickstart your career!</h2>
-                        <div class="content">
-                            <form method="" action="">
-                                <div class="row">
-                                    <div class="col-md-4 col-sm-6">
-                                        <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="job title / keywords / company name">
-                                            <i class="ti-time"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-6">
-                                        <div class="form-group">
-                                            <input class="form-control" type="email" placeholder="city / province / zip code">
-                                            <i class="ti-location-pin"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-6">
-                                        <div class="search-category-container">
-                                            <label class="styled-select">
-                                                <select class="dropdown-product selectpicker">
-                                                    <option>All Categories</option>
-                                                    <option>Finance</option>
-                                                    <option>IT & Engineering</option>
-                                                    <option>Education/Training</option>
-                                                    <option>Art/Design</option>
-                                                    <option>Sale/Markting</option>
-                                                    <option>Healthcare</option>
-                                                    <option>Science</option>
-                                                    <option>Food Services</option>
-                                                </select>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-1 col-sm-6">
-                                        <button type="button" class="btn btn-search-icon"><i class="ti-search"></i></button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="popular-jobs">
-                            <b>Popular Keywords: </b>
-                            <a href="#">Web Design</a>
-                            <a href="#">Manager</a>
-                            <a href="#">Programming</a>
-                        </div>
 
-                    </div>
+
+
+
+
+
+
+{% for f in can %}
+ <div class="content">
+    <div class="container-fluid">
+        <h2> Offre {{f.id }}  </h2>
+
+
+
+
+
+                           <table border="0">
+                            <tr><td width="220px" >   <img src="{{ asset('assets/uploads/images/'~ f.logo) }}" alt="" style=" width:50px;height: 50px">  </td>
+
+
+
+                           <td ><br><h4>Titre de poste : {{f.titre }}
+
+
+                              <br>  Nom Entreprise  :    {{f.nomentreprise }}
+                                <br> Adresse  : {{f.lieu }}
+                                 <br>
+
+
+                                  <br>Description  :  {{f.description }}
+
+                                  <br>  Taille Entreprise : {{f.tailleentreprise }}
+                                  <br> Poste de Recruteur : {{f.poste }}
+                                    <br>
+                                   <br> Media : {{f.media }}
+<br>
+                                  Nombre de poste :  {{f.nombrerecrutement }}
+                                    <td> <button><a href="{{ path('listeEmp',{'id':f.id}) }}">Voir Plus </a></button>
+                                    </tr>
+                                </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </div>
+            </div>
+                {% endfor %}
+        </div>
                 </div>
             </div>
         </div>
-    </section>
+     </section>
+
     <section class="find-job section">
         <div class="container">
             <h2>Search A event !!</h2>
@@ -139,7 +151,7 @@
                                         </div>
                                     </div>
                                     <div class="pull-right">
-                                        {{ if path ('participe',{'id': evenement.id}) }}
+
                                         <a href="{{ path('participer',{'id': evenement.id }) }}" class="btn btn-common btn-rm">Participer</a>
 
                                     </div>
