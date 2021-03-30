@@ -26,29 +26,27 @@ class CommantaireController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="commantaire_new", methods={"GET","POST"})
+     * @Route("/new", name="commantaire_new", methods={"POST"})
      */
-    public function new(Request $request): Response
+    public function new()
     {
-        $commantaire = new Commantaire(new \DateTime('today'));
-        $form = $this->createForm(CommantaireType::class, $commantaire);
-        $form->handleRequest($request);
+        $commentaire = new Commantaire(new \DateTime('today'));
 
-        if ($form->isSubmitted() && $form->isValid()) {
+
+        if (isset($_POST["submit"])) {
+            $commente=$_POST["commente"];
+            $id_pub=$_POST["id_pub"];
             $entityManager = $this->getDoctrine()->getManager();
             $datetime = date ("Y-m-d H:i:s");
-            $commantaire->setDate($datetime);
-            $commantaire->setLikes(0);
-            $entityManager->persist($commantaire);
+            $commentaire->setDate($datetime);
+            $commentaire->setComPub($id_pub);
+            $commentaire->getContenu($commente);
+            $entityManager->persist($commentaire);
             $entityManager->flush();
 
-            return $this->redirectToRoute('commantaire_index');
+            return $this->redirectToRoute('publication_indexFront');
         }
 
-        return $this->render('commantaire/new.html.twig', [
-            'commantaire' => $commantaire,
-            'form' => $form->createView(),
-        ]);
     }
 
     /**

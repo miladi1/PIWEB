@@ -13,9 +13,6 @@ class CommantaireType extends AbstractType
     {
         $builder
             ->add('contenu')
-            ->add('date')
-            ->add('likes')
-            ->add('comPub')
         ;
     }
 

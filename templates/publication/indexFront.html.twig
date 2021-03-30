@@ -40,6 +40,12 @@
                         <p>{{ publication.description }}</p>
                         <div class="job-tag">
                             <div class="pull-left">
+                                {% for commente in commantaires %}
+                                    {% if (commente.comPub== publication.id ) %}
+                                        Nom: {{ commente.contenu }}<br>
+                                    {% endif %}
+                                {% endfor %}
+
                                 <div class="meta-tag">
                                     <span><div>
     <span> <i class="fa fa-star fa-2x" style="color:#b300ff" data-indexe="0"></i></span>
@@ -48,16 +54,22 @@
     <span> <i class="fa fa-star fa-2x" style="color:#b300ff" data-indexe="3"></i></span>
     <span> <i class="fa fa-star fa-2x" style="color:#b300ff" data-indexe="4"></i></span>
 </div></span>
-                                    <span><i class="ti-link"></i>{{ publication.likes }}</span>
+
                                     <span><i class="ti-time"></i>{{ publication.Date }}</span>
                                 </div>
                             </div>
                             <div class="pull-right">
                                 <div class="icon">
-                                    <i class="ti-heart"></i>
+                                    <i class="ti-heart">{{ publication.likes }}</i>
                                 </div>
-                                <div class="btn btn-common btn-rm">More Detail</div>
+
                             </div>
+
+                            <form action="commantaire_new" method="post">
+                                <input type="text" name="commente" placeholder="Ajouter votre commentaire">
+                                <input type="hidden" name="id_pub" value="{{ publication.id }}">
+                                <input class="btn btn-common btn-rm" name="submit" type="submit" value="Commente">
+                            </form>
                         </div>
                     </div>
                 </div>

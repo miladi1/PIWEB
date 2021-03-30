@@ -29,14 +29,10 @@ class Commantaire
      */
     private $date;
 
-    /**
-     * @ORM\Column(type="integer",)
-     */
-    private $likes;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Publication::class, inversedBy="commantaires")
-     * @ORM\JoinColumn(nullable=false)
+     *@var int
+     * @ORM\Column(type="integer")
      */
     private $comPub;
 
@@ -70,24 +66,13 @@ class Commantaire
         return $this;
     }
 
-    public function getLikes(): ?string
-    {
-        return $this->likes;
-    }
 
-    public function setLikes(string $likes): self
-    {
-        $this->likes = $likes;
-
-        return $this;
-    }
-
-    public function getComPub(): ?Publication
+    public function getComPub(): ?int
     {
         return $this->comPub;
     }
 
-    public function setComPub(?Publication $comPub): self
+    public function setComPub($comPub): self
     {
         $this->comPub = $comPub;
 

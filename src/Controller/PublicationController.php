@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Commantaire;
 use App\Entity\Publication;
 use App\Form\PublicationType;
+use App\Repository\CommantaireRepository;
 use App\Repository\PublicationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -67,7 +69,7 @@ class PublicationController extends AbstractController
     /**
      * @Route("/PublicationFront", name="publication_indexFront", methods={"GET"})
      */
-    public function indexFront(PublicationRepository $publicationRepository ,Request $request,PaginatorInterface $paginator): Response
+    public function indexFront(PublicationRepository $publicationRepository ,CommantaireRepository $commantaireRepository,Request $request,PaginatorInterface $paginator): Response
     {
         $donnees = $this->getDoctrine()->getRepository(Publication::class)->findAll();
 
@@ -76,7 +78,7 @@ class PublicationController extends AbstractController
             $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
             6 ); // Nombre de résultats par page
         return $this->render('Publication/indexFront.html.twig', [
-            'publications' => $publications,
+            'publications' => $publications,'commantaires' => $commantaireRepository->findAll(),
         ]);
 
 
@@ -176,6 +178,31 @@ class PublicationController extends AbstractController
                         'publications' => $publicationRepository->findBy(array('Titre' => $data)),*/
         ]);
     }
+
+    /**
+     * @Route("/commantaire_new", name="commantaire_new", methods={"POST"})
+     */
+    public function new_commente()
+    {
+        $commentaire = new Commantaire(new \DateTime('today'));
+
+
+        if (isset($_POST["submit"])) {
+            $commente=$_POST["commente"];
+            $id_pub=$_POST["id_pub"];
+            $entityManager = $this->getDoctrine()->getManager();
+            $datetime = date ("Y-m-d H:i:s");
+            $commentaire->setDate($datetime);
+            $commentaire->setComPub($id_pub);
+            $commentaire->setContenu($commente);
+            $entityManager->persist($commentaire);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('publication_indexFront');
+        }
+
+    }
+
 
 
     /**

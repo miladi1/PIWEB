@@ -105,6 +105,7 @@ class Publication
         return $this->id;
     }
 
+
     public function getTitre(): ?string
     {
         return $this->titre;
