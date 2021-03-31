@@ -18,6 +18,25 @@ class PublicationRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Publication::class);
     }
+    function rech($data)
+    {
+        return $this->createQueryBuilder('publication')
+            ->Where('publication.titre Like :titre')
+            ->setParameter('titre', '%'.$data.'%')
+            ->getQuery()->getResult();
+    }
+    function tri_asc()
+    {
+        return $this->createQueryBuilder('publication')
+            ->orderBy('publication.likes ','ASC')
+            ->getQuery()->getResult();
+    }
+    function tri_desc()
+    {
+        return $this->createQueryBuilder('publication')
+            ->orderBy('publication.likes ','DESC')
+            ->getQuery()->getResult();
+    }
 
     // /**
     //  * @return Publication[] Returns an array of Publication objects

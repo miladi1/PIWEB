@@ -2,7 +2,7 @@
 
 namespace App\Controller;
  
-use App\Entity\employeur;
+use App\Entity\Employeur;
  
  
 use App\Entity\opportunite;

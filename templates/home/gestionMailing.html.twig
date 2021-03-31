@@ -1,0 +1,59 @@
+
+
+  
+ {% extends 'base2.html.twig' %}
+ {%block content %}
+
+ <div class="content">
+    <div class="container-fluid">
+        <h2>Liste des Mails</h2>
+    
+        <form >
+
+        
+
+    
+                         
+              
+                </div>   
+
+                        <table border="1" >
+                            <tr>
+                                <td><h4>    ID</h4></td>
+                                
+                                <td><h4>Sujet</h4></td>
+                                <td><h4>Etat</h4></td>
+                                <td><h4>Numero_Employer</h4></td>
+                                <td><h4>Reference Offres</h4></td>
+                               
+                                <td><h4>Mail</h4></td>
+                              
+                            </tr>
+                            {% for f in opp %}
+                                <tr>
+                                    <td>{{f.id }}  </td>
+                                 
+                                    <td>{{f.sujet }}  </td>
+                                    <td>{{ f.etat }}</td>
+                                    <td>{{f.Numero.num }}  </td>
+                                    <td>{{ f.ref }}</td>
+                                    <td>{{ f.email }}</td>
+                                   
+                                    <td><button><a href="{{ path('del',{'id':f.id}) }}">delete</a> </button></td>
+                                    <td> <button><a href="{{ path('updateMail',{'id':f.id}) }}">Update</a></button> </td>
+                                </tr>
+                            {% endfor %}
+
+                        </table>
+                        </div>
+                        </div>
+
+ 
+
+{% endblock %}
+
+
+     
+ 
+
+

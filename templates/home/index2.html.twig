@@ -1,0 +1,107 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+
+
+        <div class="container">
+            <h2>Search A event !!</h2>
+
+            <div class="sidebar-search">
+
+                <div class="input-group custom-search-form">
+
+                    <input type="text" id="search" class="form-control" placeholder="Search here">
+                </div>
+                <!-- /input-group -->
+            </div>
+            <ul class="nav" id="side-menu">
+                <li>
+                    <a href="#"> Entities<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level" id="entitiesNav">
+                    </ul>
+                </li>
+            </ul><br><br><br><br>
+
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+            <script type="text/javascript">
+                jQuery(document).ready(function() {
+                    var searchRequest = null;
+                    $("#search").keyup(function() {
+                        var minlength = 1;
+                        var that = this;
+                        var value = $(this).val();
+                        var entitySelector = $("#entitiesNav").html('');
+                        if (value.length >= minlength ) {
+                            if (searchRequest != null)
+                                searchRequest.abort();
+                            searchRequest = $.ajax({
+                                type: "GET",
+                                url: "{{ path('ajax_search') }}",
+                                data: {
+                                    'q' : value
+                                },
+                                dataType: "text",
+                                success: function(msg){
+                                    //we need to check if the value is the same
+                                    if (value===$(that).val()) {
+                                        var result = JSON.parse(msg);
+                                        $.each(result, function(key, arr) {
+                                            $.each(arr, function(id, value) {
+                                                if (key === 'evenements') {
+                                                    if (id !== 'error') {
+                                                        entitySelector.append('<li><b>'+value[1]+'</b><a href="/evenement/par/'+id+'"><img src="/images/products/'+value[0]+'" style="width: 60px; height: 60px"/></a></li>');
+                                                    } else {
+                                                        entitySelector.append('<li class="errorLi">'+value+'</li>');
+                                                    }
+                                                }
+                                            });
+                                        });
+                                    }
+                                }
+                            });
+                        }
+                    });
+                });
+            </script>
+            <h2 class="section-title">Hot events</h2>
+            <div class="row">
+                <div class="col-md-12">
+                    {% for evenement in evenements %}
+                        {% if evenement.photo %}
+                            <div class="job-list">
+                                <div class="thumb">
+                                    <img src="/images/products/{{ evenement.photo }}" alt="" >
+                                </div>
+                                <div class="job-list-content">
+                                    <h4><a href="job-details.html">{{ evenement.titre }}</a></h4>
+                                    <p>{{ evenement.description }}</p>
+                                    <p>date start : {{ evenement.dateStart ? evenement.dateStart|date('Y-m-d H:i:s') : '' }}  , date end : {{ evenement.dateEnd ? evenement.dateEnd|date('Y-m-d H:i:s') : '' }}</p>
+                                    <div class="job-tag">
+                                        <div class="pull-left">
+                                            <div class="meta-tag">
+                                                <span><a href="{{ path('participer',{'id': evenement.id }) }}"><i class="ti-brush"></i>{{ evenement.nombrePar }}</a></span>
+
+                                            </div>
+                                        </div>
+                                        {% if app.user %}
+                                            <div class="pull-right">
+
+                                                <a href="{{ path('participer',{'id': evenement.id }) }}" class="btn btn-common btn-rm">Participer</a>
+
+                                            </div>
+                                        {% endif %}
+                                        {% if not app.user %}
+                                            <li class="right"><a href="{{ path('app_login') }}"><i class="ti-lock"></i>  participer</a></li>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+
+            </div>
+        </div>
+
+{% endblock %}

@@ -58,7 +58,7 @@ class Employeur implements UserInterface
     private $loca;
 
     /**
-     * @ORM\OneToMany(targetEntity=Employer::class, mappedBy="employeur")
+     * @ORM\OneToMany(targetEntity=Employer::class, mappedBy="Employeur")
      */
     private $relation;
 
@@ -195,6 +195,11 @@ class Employeur implements UserInterface
     }
     public function eraseCredentials(){}
     public function getSalt(){}
+    public function getName()
+    {
+        return $this->nom;
+    }
+
     public function getRoles()
     {
         return ['ROLE_Employeur'];

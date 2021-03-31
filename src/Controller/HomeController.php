@@ -35,6 +35,16 @@ class HomeController extends AbstractController
         ]);
     }
     /**
+     * @Route("/event", name="event")
+     */
+    public function index2(EvenementRepository $evenementRepository): Response
+    {
+
+
+        return $this->render('home/index2.html.twig', [
+            'evenements' => $evenementRepository->findAll()]);
+    }
+    /**
      * @Route("/admin", name="admin")
      */
     public function admin(): Response
@@ -42,25 +52,32 @@ class HomeController extends AbstractController
 
         return $this->render('base2.html.twig');
     }
+
     /**
      * @Route("/post-job", name="post")
      */
-    public function postjobaction(ParticipationRepository $participationRepository ,EmployerRepository $employerRepository,OpportuniteRepository $repository)
+    public function postjobaction(ParticipationRepository $participationRepository ,EmployerRepository $employerRepository,EvenementRepository $repository)
     {
 
-        $car = new Participation();
+        $car = $participationRepository->findAll();
+        $car2 = $repository->findAll();
+        $car3 = $employerRepository->findAll();
 
-        return $this->render('home/post-job.html.twig',['participation'=>$participationRepository->findAll()]);
+
+        return $this->render('home/post-job.html.twig',['participation'=>$car,'events'=>$car2,'employes'=>$car3]);
     }
 
     /**
      * @Route("/post-job/{id}", name="participation_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Participation $participation): Response
+    public function delete(Request $request, Participation $participation,ParticipationRepository $pr): Response
     {
         if ($this->isCsrfTokenValid('delete'.$participation->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
+            $event = $entityManager->getRepository(Evenement::class)->find($participation->getIdEvent());
+            $event->setNombrePar($event->getNombrePar()+1);
             $entityManager->remove($participation);
+            $entityManager->persist($event);
             $entityManager->flush();
         }
 
@@ -71,7 +88,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/participer/{id}", name="participer")
      */
-    public function participer(Request $request,$id,\Swift_Mailer $mailer)
+    public function participer(Request $request,$id,\Swift_Mailer $mailer,ParticipationRepository $pr)
 
     {
 
@@ -85,16 +102,17 @@ class HomeController extends AbstractController
         $form = $this->createForm(ParticipationType::class, $car);
         $form->handleRequest($request);
         $em = $this->getDoctrine()->getManager();
-        $y = $em->getRepository(Participation::class)->findOneBy(array('idEmployer'=>$this->getUser()->getId()));
-        $x = $em->getRepository(Participation::class)->findOneBy(array('idEvent' => $id));
+        $event =null;
+
+        $x = $pr->findOneBySomeField($this->getUser()->getId(),$id);
         $event = $em->getRepository(Evenement::class)->find($car->getIdEvent());
         $userr = $em->getRepository(Employer::class)->find($car->getIdEmployer());
-
+        $event->setNombrePar($event->getNombrePar()-1);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            if (empty($x && $y)) {
+            if (empty($x)) {
 
-                $em->persist($car);
+                $em->persist($car,$event);
                 $em->flush();
 
 
@@ -125,7 +143,7 @@ class HomeController extends AbstractController
                 $this->addFlash('info', 'Created Successfully !');
                 return $this->redirectToRoute('home', ['participationForm' => $form->createView()]);
             } else {
-                return new Response('<script>alert("Deja participé !");</script>');
+                return new Response('<script>alert("Deja participé !");window.location.replace("http://localhost:8000");</script>');
             }
         }
         return $this->render('home/newpar.html.twig', ['participationForm' => $form->createView()]);

@@ -37,7 +37,12 @@
         </tr>
         </tbody>
     </table>
+        {% if app.user %}
         <a href="{{ path('participer',{'id': evenement.id }) }}" class="btn btn-common btn-rm">Participer</a><br>
+        {% endif %}
+        {% if not app.user %}
+            <li class="right"><a href="{{ path('app_login') }}"><i class="ti-lock"></i>  Log In</a></li>
+        {% endif %}
     <a href="{{ path('home') }}">back to list</a>
 
 

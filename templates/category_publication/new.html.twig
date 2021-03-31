@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New CategoryPublication{% endblock %}
+
+{% block content %}
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+    <h1>Create new CategoryPublication</h1>
+
+    {{ include('category_publication/_form.html.twig') }}
+
+    <a href="{{ path('category_publication_index') }}">back to list</a>
+{% endblock %}

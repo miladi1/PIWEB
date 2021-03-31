@@ -62,28 +62,17 @@
                     <ul class="nav navbar-nav">
                         <li>
                             <a href="{{ path('home') }}">
-                                Home <i class="fa fa-angle-down"></i>
+                                Home
                             </a>
                             <ul class="dropdown">
                                 <li>
-                                    <a class="active" href="{{ path('home') }}">
-                                        Home 1
-                                    </a>
+                                    Bienvenue Sur Notre Nouvelle site FindJob
                                 </li>
                                 <li>
-                                    <a href="index-02.html">
-                                        Home 2
-                                    </a>
                                 </li>
                                 <li>
-                                    <a href="index-03.html">
-                                        Home 3
-                                    </a>
                                 </li>
                                 <li>
-                                    <a href="index-04.html">
-                                        Home 4
-                                    </a>
                                 </li>
                             </ul>
                         </li>
@@ -93,8 +82,8 @@
                             </a>
                             <ul class="dropdown">
                                 <li>
-                                    <a href="{{ path('evenement_index') }}">
-                                        Gerer evenement
+                                    <a href="{{ path('event') }}">
+                                        Notre evenement
                                     </a>
                                 </li>
                                 <li>
@@ -111,36 +100,33 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="#">
-                                Candidates <i class="fa fa-angle-down"></i>
+                            <a href="{{ path('publication_index') }}">
+                                publication <i class="fa fa-angle-down"></i>
                             </a>
                             <ul class="dropdown">
                                 <li>
-                                    <a href="browse-jobs.html">
-                                        Browse Jobs
+                                    <a href="{{ path('publication_index') }}">
+                                        gerer publication
+
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="browse-categories.html">
-                                        Browse Categories
+                                    <a href="{{ path('category_publication_index') }}">
+                                        categories des publication
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="add-resume.html">
-                                        Add Resume
-                                    </a>
                                 </li>
                                 <li>
-                                    <a href="manage-resumes.html">
-                                        Manage Resumes
-                                    </a>
                                 </li>
                                 <li>
-                                    <a href="job-alerts.html">
-                                        Job Alerts
-                                    </a>
                                 </li>
-                            </ul>
+                                <li>
+                                </li>
+                                <li>
+
+                                </li>
+                                <li><a href="{{ path('publication_indexFront') }}">Publication front</a></li>    </ul>
                         </li>
                         <li>
                             <a class="active" href="#">
@@ -212,7 +198,7 @@
                         <li><a herf="{{ path('employer_profile') }}"><img src="{{ asset("assets/img/") }}{{app.user.img}}" alt="" class="img"></a></li>
 
 
-                        <li class="left"><a href="{{ path('post') }}"><i class="ti-pencil-alt"></i> Post A Job</a></li>
+                        <li class="left"><a href="{{ path('liste') }}"><i class="ti-pencil-alt"></i> Post A Job</a></li>
                         {% endif %}
                         {% if not app.user %}
                         <li class="right"><a href="{{ path('app_login') }}"><i class="ti-lock"></i>  Log In</a></li>

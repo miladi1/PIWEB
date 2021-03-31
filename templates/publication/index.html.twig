@@ -1,0 +1,82 @@
+{% extends 'base2.html.twig' %}
+{% block title %}Publication index{% endblock %}
+{% block content %}
+<style>
+    .img{
+        width: 60px;
+        height: 60px;
+        background-size: cover;
+        display: block;
+        border-radius: 100px;
+        -webkit-border-radius: 100px;
+        -moz-border-radius: 100px;
+    }
+</style>
+<br>
+<br>
+<br>
+<br>
+    <center><h1>Listes des publications</h1></center>
+    <form method="post" action="{{ path('publication_recherche') }}">
+        <label></label>
+        <label>
+
+            <input PLACEHOLDER="SEARCH !" type="text" name="data" class="form-control">
+        </label>
+        <input type="submit" class="btn btn-success" value="FIND">
+
+    </form>
+
+    <form method="post" action="{{ path('tri') }}">
+        <label>
+            <select class="form-control" name="type">
+                <option>Croissant</option>
+                <option>Décroissant</option>
+            </select>
+        </label>
+        <input type="submit" class="btn btn-success" value="Trier par likes">
+    </form>
+<table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Titre</th>
+            <th>Description</th>
+            <th>Date</th>
+            <th>Categorie</th>
+            <th>Vus</th>
+            <th>Likes</th>
+            <th>NombreCom</th>
+            <th>Image</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+<tbody>
+{% for publication in publications %}
+    <tr>
+        <td>{{ publication.id }}</td>
+        <td>{{ publication.titre }}</td>
+        <td>{{ publication.description }}</td>
+        <td>{{ publication.Date }}</td>
+        <td> {{ publication.Categorie }}</td>
+        <td>{{ publication.vus }}</td>
+        <td>{{ publication.likes }}</td>
+        <td>{{ publication.nombreCom }}</td>
+        <td><img src="{{ asset("assets/img/") }}{{publication.img}}" alt="" class="img"></td>
+        <td>
+            <a href="{{ path('publication_show', {'id': publication.id}) }}">show</a>
+            <a href="{{ path('publication_edit', {'id': publication.id}) }}">edit</a>
+        </td>
+    </tr>
+
+{% else %}
+    <tr>
+        <td colspan="8">no records found</td>
+    </tr>
+{% endfor %}
+</tbody>
+</table>
+
+    <a href="{{ path('publication_new') }}">Create new</a> <br>
+    <a class="right" href="{{ path('publication_pdf') }}">Exporter PDF</a>
+{% endblock %}

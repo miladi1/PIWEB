@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Form;
-use App\Entity\employeur;
+use App\Entity\Employeur;
 use App\Entity\opportunite;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -65,7 +65,7 @@ class OpportuniteType extends AbstractType
             )
              
             ->add('opEmployeur', EntityType::class, [
-                    'class' => employeur::class,
+                    'class' => Employeur::class,
                     
                     'choice_label' => 'nom',
                 ])

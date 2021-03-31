@@ -26,7 +26,7 @@ class MailingController extends AbstractController
 
 
     /**
-     * @Route("/maili", name="mailing")
+     * @Route("/maili", name="a")
      */
     public function index(): Response
     {
@@ -82,7 +82,30 @@ class MailingController extends AbstractController
  
 
     }
-     
+      /**
+     * @param $id
+     * @param OpportuniteRepository $repo
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @Route("/updateMail/{id}",name="updateMail")
+     */
+    function Update($id,MailingRepository $repo, Request $request){
+        $class=$repo->find($id);
+        $form=$this->createForm(MailingType::class,$class);
+
+
+        $form->Add('Update',SubmitType::class);
+        $form->handleRequest($request);
+        if($form->isSubmitted()&&$form->isValid())
+        {
+            $em=$this->getDoctrine()->getManager();
+            $em->flush();
+            return $this->redirectToRoute('mailing');
+        }
+
+        return $this->render("home/ModifStatut.html.twig",['form1'=>$form->createView()]);
+
+        }
      /**
    * @route("/admin/statistique",name="sta")
      */
@@ -161,6 +184,20 @@ class MailingController extends AbstractController
         return $this->render("home/etat.html.twig",['candi'=>$opp,'id'=>$id]);
 
         return $this-> redirectToRoute('recherc');
+
+    }
+    /**
+
+     * @route("/Status",name="mailing")
+     */
+    public function affiche(MailingRepository $repository)
+    {
+        /*$repo=$this->getdoctrine()->getRepository(Classroom::class);*/
+        $opp=$repository->findAll();
+
+        return $this->render("home/gestionMailing.html.twig",['opp'=>$opp]);
+
+
 
     }
       

@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Publication{% endblock %}
+
+{% block content %}
+<br>
+<br>
+<br>
+<br>
+   <center><h1>Exprimez-vous</h1> </center>
+
+
+
+    {{ include('publication/_form.html.twig') }}
+
+    <a href="{{ path('publication_index') }}">back to list</a>
+
+{% endblock %}

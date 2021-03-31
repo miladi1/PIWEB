@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit CategoryPublication{% endblock %}
+
+{% block content %}
+    <h1>Edit CategoryPublication</h1>
+
+    {{ include('category_publication/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('category_publication_index') }}">back to list</a>
+
+    {{ include('category_publication/_delete_form.html.twig') }}
+{% endblock %}

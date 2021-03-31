@@ -41,7 +41,7 @@ class opportunite
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity=employeur::class, inversedBy="opportunites")
+     * @ORM\ManyToOne(targetEntity=Employeur::class, inversedBy="opportunites")
      * @ORM\JoinColumn(nullable=false)
      */
     private $opEmployeur;
@@ -139,12 +139,12 @@ class opportunite
         return $this;
     }
 
-    public function getOpEmployeur(): ?employeur
+    public function getOpEmployeur(): ?Employeur
     {
         return $this->opEmployeur;
     }
 
-    public function setOpEmployeur(?employeur $opEmployeur): self
+    public function setOpEmployeur(?Employeur $opEmployeur): self
     {
         $this->opEmployeur = $opEmployeur;
 

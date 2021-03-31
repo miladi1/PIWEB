@@ -33,7 +33,7 @@ class MailingType extends AbstractType
             
             ->add('etat',  HiddenType::class, [
                 'required'   => false,
-                'empty_data' => 'Verifier Demande',
+                'empty_data' => 'En cours',
                  
             ])
                 
@@ -44,6 +44,14 @@ class MailingType extends AbstractType
                 
                 'choice_label' => 'num',
             ])
+            ->add('etat', ChoiceType::class,array (
+                'choices' => array(
+
+                    'En cours' =>  'En cours' ,
+                    'Accepter' => 'Accepter',
+                    'Refuser' => 'Refuser',
+                )
+            )   )
             
           
              

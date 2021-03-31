@@ -319,158 +319,158 @@
 
     <!-- end intro section -->
     </div>{% endblock %}
- 
-    <section id="intro" class="section-intro">
-        <div class="search-container">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h1>Find the job that fits your life</h1><br><h2>More than <strong>12,000</strong> jobs are waiting to Kickstart your career!</h2>
-                        <div class="content">
-                            <form method="" action="">
-                                <div class="row">
-                                    <div class="col-md-4 col-sm-6">
-                                        <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="job title / keywords / company name">
-                                            <i class="ti-time"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-6">
-                                        <div class="form-group">
-                                            <input class="form-control" type="email" placeholder="city / province / zip code">
-                                            <i class="ti-location-pin"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-6">
-                                        <div class="search-category-container">
-                                            <label class="styled-select">
-                                                <select class="dropdown-product selectpicker">
-                                                    <option>All Categories</option>
-                                                    <option>Finance</option>
-                                                    <option>IT & Engineering</option>
-                                                    <option>Education/Training</option>
-                                                    <option>Art/Design</option>
-                                                    <option>Sale/Markting</option>
-                                                    <option>Healthcare</option>
-                                                    <option>Science</option>
-                                                    <option>Food Services</option>
-                                                </select>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-1 col-sm-6">
-                                        <button type="button" class="btn btn-search-icon"><i class="ti-search"></i></button>
+
+<section id="intro" class="section-intro">
+    <div class="search-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Find the job that fits your life</h1><br><h2>More than <strong>12,000</strong> jobs are waiting to Kickstart your career!</h2>
+                    <div class="content">
+                        <form method="" action="">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" placeholder="job title / keywords / company name">
+                                        <i class="ti-time"></i>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
-                       
-
-  
-  
- {%block content %}
-
- 
-
-
-<html>
-
-<head>
-<meta charset="UTF-8"/>
-<script language="javascript">
-
-    
-function envoyer(){
-const url="https://api.twilio.com/2010-04-01/Accounts/ACe0b24554430af176a4b4950be4f5f5d0/Messages.json";
-const auth="ACe0b24554430af176a4b4950be4f5f5d0:b8c0f37ab8089332014336bde641b52e";
-
-const message=document.getElementById("message").value;
-const numTel=document.getElementById("mobile").value;
-
-const msg=encodeURI(message);
-const num=encodeURI(numTel);
- 
-
-const myHeader=new Headers({
-'Content-Type':'application/x-www-form-urlencoded',
-'Authorization':'Basic '+btoa(auth)
-
-});
-const init={
-method:'POST',
-headers : myHeader ,
-mode:'cors',
-body:"To="+num+"&From=+19255216485&Body="+msg
-
-
-}
-
-fetch(url,init)
-.then(Response=>console.log(Response))
-.catch(error=>console.log(console.error));
-}
-</script>
- </head>
-
-<body>
-
-  
- 
- <div id="app">
-    <form action="{{path('sms')}}">
-<h1>Send message</h1>
-
-<br>
-                        <table border="1" >
-                            <tr>
-                                <td><label>Enter Mobile Number</label></td>
-                                <td>
-                           
-                    <input type="text"   class="form-control" id="mobile" value="+216" required>
-         
-                            </tr>
-<tr>
-<td><label>Enter message</label></td>
-<td><textarea type="textarea"   class="form-control" id="message" rows="6" required></textarea>
-                            </tr>
-               
-<tr>
-<td>
-
-     
-      <button type="Submit"  onclick="envoyer();" class="btn btn-primary">Send Message</button>
-                        </div>
-                        </div>
-</div>
- 
-
-</body> 
-
-    </html> 
- 
-
-
-
-                                
-                 
- 
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="form-group">
+                                        <input class="form-control" type="email" placeholder="city / province / zip code">
+                                        <i class="ti-location-pin"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <div class="search-category-container">
+                                        <label class="styled-select">
+                                            <select class="dropdown-product selectpicker">
+                                                <option>All Categories</option>
+                                                <option>Finance</option>
+                                                <option>IT & Engineering</option>
+                                                <option>Education/Training</option>
+                                                <option>Art/Design</option>
+                                                <option>Sale/Markting</option>
+                                                <option>Healthcare</option>
+                                                <option>Science</option>
+                                                <option>Food Services</option>
+                                            </select>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-1 col-sm-6">
+                                    <button type="button" class="btn btn-search-icon"><i class="ti-search"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
 
 
 
 
-     
- 
+                    {%block content %}
 
 
 
+
+                    <html>
+
+                    <head>
+                        <meta charset="UTF-8"/>
+                        <script language="javascript">
+
+
+                            function envoyer(){
+                                const url="https://api.twilio.com/2010-04-01/Accounts/ACe0b24554430af176a4b4950be4f5f5d0/Messages.json";
+                                const auth="ACe0b24554430af176a4b4950be4f5f5d0:069adb3561b6e54431567be757a88b6c";
+
+                                const message=document.getElementById("message").value;
+                                const numTel=document.getElementById("mobile").value;
+
+                                const msg=encodeURI(message);
+                                const num=encodeURI(numTel);
+
+
+                                const myHeader=new Headers({
+                                    'Content-Type':'application/x-www-form-urlencoded',
+                                    'Authorization':'Basic '+btoa(auth)
+
+                                });
+                                const init={
+                                    method:'POST',
+                                    headers : myHeader ,
+                                    mode:'cors',
+                                    body:"To="+num+"&From=+19255216485&Body="+msg
+
+
+                                }
+
+                                fetch(url,init)
+                                    .then(Response=>console.log(Response))
+                                    .catch(error=>console.log(console.error));
+                            }
+                        </script>
+                    </head>
+
+                    <body>
+
+
+
+                    <div id="app">
+                        <form action="{{path('sms')}}">
+                            <h1>Send message</h1>
+
+                            <br>
+                            <table border="1" >
+                                <tr>
+                                    <td><label>Enter Mobile Number</label></td>
+                                    <td>
+
+                                        <input type="text"   class="form-control" id="mobile" value="+216" required>
+
+                                </tr>
+                                <tr>
+                                    <td><label>Enter message</label></td>
+                                    <td><textarea type="textarea"   class="form-control" id="message" rows="6" required></textarea>
+                                </tr>
+
+                                <tr>
+                                    <td>
+
+
+                                        <button type="Submit"  onclick="envoyer();" class="btn btn-primary">Send Message</button>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+</div>
+</div>
+</section>
 {% endblock %}
 {% block footer %}
     <!-- Footer Section Start -->
-     
+
     </div>{% endblock %}
 {% block js %}
     <script type="text/javascript" src="assets/js/jquery-min.js"></script>

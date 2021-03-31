@@ -1,8 +1,19 @@
-{% extends 'base.html.twig' %}
+{% extends 'base2.html.twig' %}
 
 {% block title %}Evenement index{% endblock %}
 
 {% block content %}
+    <style>
+        .img{
+            width: 60px;
+            height: 60px;
+            background-size: cover;
+            display: block;
+            border-radius: 100px;
+            -webkit-border-radius: 100px;
+            -moz-border-radius: 100px;
+        }
+    </style>
     <br>
     <br>
     <br>
@@ -96,7 +107,7 @@
                 <td>{{ evenement.dateEnd ? evenement.dateEnd|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ evenement.nombrePar }}</td>
                 <td>{{ evenement.description }}</td>
-                <td>dds</td>
+                <td><img src="/images/products/{{ evenement.photo }}" alt="" class="img" ></td>
                 <td>
                     <a href="{{ path('evenement_show', {'id': evenement.id}) }}">show</a>
                     <a href="{{ path('evenement_edit', {'id': evenement.id}) }}">edit</a>

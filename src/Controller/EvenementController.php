@@ -44,7 +44,7 @@ class EvenementController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager = $this->getDoctri+ne()->getManager();
 
             $entityManager->persist($evenement);
             $entityManager->flush();

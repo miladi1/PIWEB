@@ -52,9 +52,22 @@
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" href="./typography.html">
+
+                    <a class="nav-link" href="{{ path('evenement_index') }}">
+                        <i class="material-icons">content_paste</i>
+                        <p>liste evenement</p>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="{{ path('publication_index') }}">
+                        <i class="material-icons">content_paste</i>
+                        <p>liste des publications</p>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="{{ path('category_publication_index') }}">
                         <i class="material-icons">library_books</i>
-                        <p>Typography</p>
+                        <p>catégorie pulication </p>
                     </a>
                 </li>
                 <li class="nav-item ">
@@ -77,6 +90,12 @@
                         <p><a href=" {{path('sta')}}">Statistiques</a></p>
                     </a>
                 </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="./map.html">
+                        <i class="material-icons">location_ons</i>
+                        <p><a href=" {{path('mailing')}}">Statut Demande</a></p>
+                    </a>
+                </li>
 
 
                 <li class="nav-item ">
@@ -91,12 +110,7 @@
                         <p>RTL Support</p>
                     </a>
                 </li>
-                <li class="nav-item active-pro ">
-                    <a class="nav-link" href="./upgrade.html">
-                        <i class="material-icons">unarchive</i>
-                        <p>Upgrade to PRO</p>
-                    </a>
-                </li>
+                
             </ul>
         </div>
     </div>
@@ -142,6 +156,12 @@
                             <a class="nav-link" href="./map.html">
                                 <i class="material-icons">location_ons</i>
                                 <p><a href=" {{path('sta')}}">Statistiques</a></p>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="./map.html">
+                                <i class="material-icons">location_ons</i>
+                                <p><a href=" {{path('mailing')}}">Statut Demande</a></p>
                             </a>
                         </li>
                         <li class="nav-item dropdown">

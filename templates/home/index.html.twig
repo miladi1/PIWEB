@@ -137,7 +137,7 @@
                         {% if evenement.photo %}
                         <div class="job-list">
                             <div class="thumb">
-                                <a href="{{ path('participer',{'id': evenement.id }) }}"><img src="/images/products/{{ evenement.photo }}" alt="" ></a>
+                                <img src="/images/products/{{ evenement.photo }}" alt="" >
                             </div>
                             <div class="job-list-content">
                                 <h4><a href="job-details.html">{{ evenement.titre }}</a></h4>
@@ -150,11 +150,16 @@
 
                                         </div>
                                     </div>
+                        {% if app.user %}
                                     <div class="pull-right">
 
                                         <a href="{{ path('participer',{'id': evenement.id }) }}" class="btn btn-common btn-rm">Participer</a>
 
                                     </div>
+                        {% endif %}
+                                    {% if not app.user %}
+                                        <li class="right"><a href="{{ path('app_login') }}"><i class="ti-lock"></i>  participer</a></li>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>

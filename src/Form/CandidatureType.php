@@ -32,8 +32,8 @@ class CandidatureType extends AbstractType
                     'Selectionner.....' => 1,
                     'Développeur web' =>  'Développeur web' ,
                     'Ingenieur réseaux' => 'Ingenieur réseaux',
-                    'Agent Agriculteur' =>  'Agent Agriculeur' ,
-                    'Ingenieur réseaux' => 'Ingenieur réseaux',
+                    'Agent Agriculteur' =>  'Agent Agriculteur' ,
+
                     )
                 )   )
                 ->add('type_contrat', ChoiceType::class,array (
