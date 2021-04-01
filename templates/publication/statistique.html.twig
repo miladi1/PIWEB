@@ -1,0 +1,76 @@
+{% extends 'base2.html.twig' %}
+ {%block content %}
+
+     <!doctype html>
+     <html lang="en">
+     <head>
+         <meta charset="UTF-8">
+         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+         <meta name="viewport"
+               content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+         <meta http-equiv="X-UA-Compatible" content="ie=edge">
+         <title>Document</title>
+     </head>
+     <body>
+
+     <div style="width: 75%">
+         <canvas id="myChart"></canvas>
+     </div>
+     {% set nbQues=0 %}
+     {% set nbForl=0%}
+     {% set Infor=0%}
+     {% for f in Pub %}
+
+
+         {% if 'Question' == f.Categorie %}
+             {% set  nbQues=nbQues+1 %}
+
+         {%endif %}
+         {% if 'Formelle' == f.Categorie %}
+             {% set  nbForl=nbForl+1 %}
+         {%endif %}
+
+         {% if 'Informelle' == f.Categorie %}
+             {% set  Infor=Infor+1 %}
+         {%endif %}
+     {% endfor %}
+
+     <script>
+         Chart.defaults.global.title.display=true;
+     </script>
+
+     <script language="javascript">
+         var ctx = document.getElementById('myChart').getContext('2d');
+         var chart = new Chart(ctx, {
+             // The type of chart we want to create
+             type: 'line',
+
+             // The data for our dataset
+             data: {
+                 labels: ['','Question','Formelle', 'Informelle'],
+                 datasets: [{
+                     label: 'Nombres Totales des Publications: {{Pub|length}}',
+                     backgroundColor: 'rgb(255, 99, 132)',
+                     borderColor: 'rgb(255, 99, 101)',
+                     data: [0,{{nbQues}},{{nbForl}}, {{Infor}}]
+                 }]
+             },
+
+             // Configuration options go here
+             options: {
+                 title:{
+
+                     text:"Listes des publications "
+                 }
+
+             }
+         });
+     </script>
+
+
+
+
+     </body>
+     </html>
+ {% endblock %}

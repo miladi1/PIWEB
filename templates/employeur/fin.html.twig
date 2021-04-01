@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Employeur index{% endblock %}
+
+{% block content %}
+
+    <style>
+        .img{
+            width: 60px;
+            height: 60px;
+            background-size: cover;
+            display: block;
+            border-radius: 100px;
+            -webkit-border-radius: 100px;
+            -moz-border-radius: 100px;
+        }
+    </style>
+    <form method="post" action="{{ path('employeur_f') }}">
+        <label></label>
+        <label>
+
+            <input PLACEHOLDER="SEARCH !" type="text" name="data" class="form-control">
+
+
+        </label>
+
+
+        <input type="submit" class="btn btn-success" value="FIND">
+
+    </form>
+    <br>
+    <br>
+
+
+    <table class="table" border="4">
+        <thead>
+        <tr>
+
+            <th>Nom</th>
+            <th>Numero</th>
+            <th>E-Mail</th>
+            <th>Localisation</th>
+            <th>Logo</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for employeur in employeurs %}
+            <tr>
+
+                <td>{{ employeur.nom }}</td>
+                <td>{{ employeur.numero }}</td>
+                <td>{{ employeur.adresse }}</td>
+                <td>{{ employeur.loca }}</td>
+                <td><img src="{{ asset("assets/img/") }}{{employeur.logo}}" alt="" class="img"></td>
+                <td>
+                <a href="{{ path('employeur_add', {'id': employeur.id}) }}">ADD</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}

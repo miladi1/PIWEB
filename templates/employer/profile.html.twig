@@ -5,6 +5,20 @@
     <center> <h2>Hello {{ app.user.name }} </h2></center>
     <br>
     <br>
+    <form method="post" action="{{ path('employeur_f') }}">
+        <label></label>
+        <label>
+
+            <input PLACEHOLDER="SEARCH !" type="text" name="data" class="form-control">
+
+
+        </label>
+
+
+        <input type="submit" class="btn btn-success" value="FIND">
+
+    </form>
+    <br>
     <table class="table">
         <tbody>
         <tr>
@@ -44,6 +58,8 @@
         </tbody>
     </table>
     <a class="btn btn-success" href="{{ path('employer_update', {'id': app.user.id}) }}">edit</a>
-
+    <br>
+    <br>
+    {{ include('employer/supp.html.twig') }}
 
 {% endblock %}

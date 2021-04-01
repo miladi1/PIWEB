@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Commantaire;
 use App\Entity\Publication;
 use App\Form\PublicationType;
+use App\Repository\CategoryPublicationRepository;
 use App\Repository\CommantaireRepository;
 use App\Repository\PublicationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -239,6 +240,37 @@ class PublicationController extends AbstractController
         return $this->render('publication/index.html.twig', ['publications' => $publications
         ]);
     }
+    /**
+     * @Route("/pub/{id}", name="pub_add")
+     */
+    public function add(PublicationRepository $publicationRepository,$id,CommantaireRepository $commantaireRepository,Request $request,PaginatorInterface $paginator): Response
+    {
+        $donnees = $this->getDoctrine()->getRepository(Publication::class)->findAll();
+
+        $publication = $paginator->paginate(
+            $donnees, // Requête contenant les données à paginer (ici nos publications)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            6 ); // Nombre de résultats par page
+        $entityManager = $this->getDoctrine()->getManager();
+        $publications = $entityManager->getRepository(Publication::class)->find($id);
+        $publications->setLikes($publications->getLikes()+1);
+        $entityManager->persist($publications);
+        $entityManager->flush();
+        return $this->render('publication/indexFront.html.twig', ['publications' => $publication,'commantaires' => $commantaireRepository->findAll()
+
+       ]);
+    }
+
+    /**
+     * @route("/publ/stat",name="sta")
+     */
+    public function statisti(PublicationRepository $repository,CategoryPublicationRepository $categoryPublicationRepository)
+    {
+
+        $opp=$repository->findAll();
 
 
+        return $this->render("publication/statistique.html.twig",['Pub'=>$opp]);
+
+    }
 }

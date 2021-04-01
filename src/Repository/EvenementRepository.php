@@ -33,6 +33,16 @@ class EvenementRepository extends ServiceEntityRepository
 
 
     }
+    function SearchByEmp($nsc)
+
+    {
+        return $this->createQueryBuilder('o')
+            ->where ('o.employeurEvent = :employeurEvent')
+            ->setParameter('employeurEvent',$nsc)
+            ->getQuery()->getResult();
+        ;
+
+    }
     function SearchNom($nsc)
 
     {

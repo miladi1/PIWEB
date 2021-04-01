@@ -37,6 +37,13 @@ class EmployeurRepository extends ServiceEntityRepository
             ->orderBy('employeur.nom ','DESC')
             ->getQuery()->getResult();
     }
+    function fin($data)
+    {
+        return $this->createQueryBuilder('employeur')
+            ->Where('employeur.nom Like :nom')
+            ->setParameter('nom', '%'.$data.'%')
+            ->getQuery()->getResult();
+    }
 
     // /**
     //  * @return Employeur[] Returns an array of Employeur objects

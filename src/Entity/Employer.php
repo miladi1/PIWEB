@@ -211,7 +211,7 @@ class Employer implements UserInterface
 
     public function getRoles()
     {
-        return ['ROLE_Employer'];
+        return ['ROLE_EMPLOYER'];
     }
 
     public function getPassword(): ?string

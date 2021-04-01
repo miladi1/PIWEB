@@ -80,6 +80,10 @@ class Employeur implements UserInterface
 
 
     protected $captcha;
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $notif;
 
 
 
@@ -202,7 +206,7 @@ class Employeur implements UserInterface
 
     public function getRoles()
     {
-        return ['ROLE_Employeur'];
+        return ['ROLE_EMPLOYEUR'];
     }
     public function getPassword(): ?string
     {
@@ -249,5 +253,16 @@ class Employeur implements UserInterface
     public function __toString(): string
     {
         return $this->nom;
+    }
+    public function getNotif(): ?int
+    {
+        return $this->notif;
+    }
+
+    public function setNotif(int $notif): self
+    {
+        $this->notif = $notif;
+
+        return $this;
     }
 }

@@ -7,8 +7,11 @@ use App\Entity\EvenementSearch;
 use App\Entity\TypeEvent;
 use App\Form\EvenementSearchType;
 use App\Form\Evenement1Type;
+use App\Repository\EmployerRepository;
+use App\Repository\EmployeurRepository;
 use App\Repository\EvenementRepository;
 use App\Repository\TypeEventRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,26 +28,36 @@ class EvenementController extends AbstractController
     /**
      * @Route("/", name="evenement_index")
      */
-   public function index(EvenementRepository $evenementRepository): Response
+   public function index(Request $request,EvenementRepository $evenementRepository,PaginatorInterface $paginator): Response
+
+
     {
+        $donnees = $this->getDoctrine()->getRepository(Evenement::class)->findAll();
+        $evenements = $paginator->paginate(
+            $donnees, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            6 // Nombre de résultats par page
+        );
         return $this->render('evenement/index.html.twig', [
-            'evenements' => $evenementRepository->findAll(),
+            'evenements' => $evenements,
         ]);
     }
 
     /**
      * @Route("/new", name="evenement_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, EmployeurRepository $repository ): Response
     {
         $evenement = new Evenement(new \DateTime('today'),new \DateTime('today'));
+        $e=$repository->find($this->getUser()->getId());
+        $evenement->setEmployeurEvent($e);
 
         $form = $this->createForm(Evenement1Type::class, $evenement);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $entityManager = $this->getDoctri+ne()->getManager();
+            $entityManager = $this->getDoctrine()->getManager();
 
             $entityManager->persist($evenement);
             $entityManager->flush();

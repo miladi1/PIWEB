@@ -1,34 +1,24 @@
 
 
-{% block content %}
-    <style>
-        .img{
-            width: 60px;
-            height: 60px;
-            background-size: cover;
-            display: block;
-            border-radius: 100px;
-            -webkit-border-radius: 100px;
-            -moz-border-radius: 100px;
-        }
-    </style>
+
+
 
     <br>
     <br>
     <br>
-   <center> <h1>Liste Des Employers </h1></center>
+   <center> <h1>Liste Des Employers </h1>
 
-   <center> <table class="table" border="4">
+
+    <table class="table" border="1">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Name</th>
-                <th>Mot de Passe</th>
                 <th>E-Mail</th>
                 <th>Numéro</th>
                 <th>Localisation</th>
                 <th>Categorie</th>
-                <th>Image</th>
+
 
             </tr>
         </thead>
@@ -37,17 +27,17 @@
             <tr>
                 <td>{{ employer.id }}</td>
                 <td>{{ employer.name }}</td>
-                <td>{{ employer.mdp }}</td>
                 <td>{{ employer.mail }}</td>
                 <td>{{ employer.num }}</td>
                 <td>{{ employer.localisation }}</td>
                 <td>{{ employer.categorie }}</td>
-                <td><img src="{{ asset("assets/img/") }}{{employer.img}}" alt="" class="img"></td>
+
 
 
             </tr>
 
         {% endfor %}
         </tbody>
-    </table></center>
-{% endblock %}
+    </table>
+   </center>
+

@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+    <center> <h2>Hello {{ app.user.nom }} </h2></center>
+    <br>
+    <br>
+
+    <br>
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ app.user.id }}</td>
+        </tr>
+        <tr>
+            <th>Name</th>
+            <td>{{ app.user.nom }}</td>
+        </tr>
+        <tr>
+            <th>Mdp</th>
+            <td>{{ app.user.pass }}</td>
+        </tr>
+        <tr>
+            <th>Mail</th>
+            <td>{{ app.user.adresse }}</td>
+        </tr>
+        <tr>
+            <th>Num</th>
+            <td>{{ app.user.numero }}</td>
+        </tr>
+        <tr>
+            <th>Localisation</th>
+            <td>{{ app.user.loca }}</td>
+        </tr>
+
+        <tr>
+            <th>Image</th>
+
+            <td><img src="{{ asset("assets/img/") }}{{app.user.logo}}" alt="" class="img"></td>
+        </tr>
+
+        </tbody>
+    </table>
+
+    <a class="btn btn-success" href="{{ path('employeur_update', {'id': app.user.id}) }}">edit</a>
+<br>
+    <br>
+
+    {{ include('employeur/supp.html.twig') }}
+
+
+{% endblock %}

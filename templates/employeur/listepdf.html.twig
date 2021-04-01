@@ -1,0 +1,33 @@
+<center> <h1>Liste Des Employeurs </h1></center>
+
+    <br>
+    <br>
+    <table class="table" border="4">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nom</th>
+            <th>Numero</th>
+            <th>E-Mail</th>
+            <th>Localisation</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for employeur in employeurs %}
+            <tr>
+                <td>{{ employeur.id }}</td>
+                <td>{{ employeur.nom }}</td>
+
+                <td>{{ employeur.numero }}</td>
+                <td>{{ employeur.adresse }}</td>
+                <td>{{ employeur.loca }}</td>
+
+            </tr>
+        {% else %}
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+
+

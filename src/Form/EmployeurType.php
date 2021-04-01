@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Employeur;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -16,8 +17,8 @@ class EmployeurType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('pass')
-            ->add('cp')
+            ->add('pass',PasswordType::class)
+            ->add('cp',PasswordType::class)
             ->add('numero')
             ->add('adresse')
             ->add('loca')

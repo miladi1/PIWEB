@@ -118,13 +118,16 @@
                 <td colspan="7">no records found</td>
             </tr>
         {% endfor %}
+
         </tbody>
     </table>
+            {{ knp_pagination_render(evenements) }}
 
     <a href="{{ path('evenement_new') }}">Create new</a><br>
     <a href="{{ path('pdf') }}" class="btn btn-info btn-icon-text" >pdf</a>
         </div>
     </div>
+
     <br>
     <br>
 {% endblock %}

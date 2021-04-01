@@ -86,11 +86,18 @@
                                         Notre evenement
                                     </a>
                                 </li>
+                                {% if app.user %}
+                                {% if app.user.roles != ['ROLE_EMPLOYEUR']  %}
                                 <li>
                                     <a href="{{ path('post') }}">
                                         la liste des participartion
                                     </a>
                                 </li>
+                                {% elseif app.user.roles != ['ROLE_EMPLOYER']  %}
+                                {% endif %}
+                                {% elseif not app.user %}
+                                {% endif %}
+
 
                                 <li>
                                     <a href="contact.html">
@@ -104,6 +111,7 @@
                                 publication <i class="fa fa-angle-down"></i>
                             </a>
                             <ul class="dropdown">
+                                {% if app.user %}
                                 <li>
                                     <a href="{{ path('publication_index') }}">
                                         gerer publication
@@ -115,6 +123,7 @@
                                         categories des publication
                                     </a>
                                 </li>
+
                                 <li>
                                 </li>
                                 <li>
@@ -125,34 +134,59 @@
                                 </li>
                                 <li>
 
+
                                 </li>
-                                <li><a href="{{ path('publication_indexFront') }}">Publication front</a></li>    </ul>
+                                <li><a href="{{ path('publication_indexFront') }}">Publication front</a></li> {% endif %}   </ul>
                         </li>
                         <li>
                             <a class="active" href="#">
                                 Employers <i class="fa fa-angle-down"></i>
                             </a>
                             <ul class="dropdown">
+                                {% if not app.user %}
                                 <li>
-                                    <a class="active" href="post-job.html">
-                                        Add Job
+                                    <a class="active" href="{{ path('employer_new') }}">
+                                        Employer
                                     </a>
                                 </li>
+                                {% endif %}
+                                {% if not app.user %}
                                 <li>
-                                    <a href="manage-jobs.html">
-                                        Manage Jobs
+                                    <a href="{{ path('employeur_new') }}">
+                                        Employeur
                                     </a>
                                 </li>
+                                {% endif %}
+                                {% if not app.user %}
                                 <li>
-                                    <a href="manage-applications.html">
-                                        Manage Applications
+                                    <a href="{{ path('app_log') }}">
+                                        Login Employeur
                                     </a>
                                 </li>
+                                {% endif %}
+                                {% if not app.user %}
                                 <li>
-                                    <a href="browse-resumes.html">
-                                        Browse Resumes
+                                    <a href="{{ path('app_login') }}">
+                                        Login Employer
                                     </a>
                                 </li>
+                                {% endif %}
+                                {% if app.user %}
+                                {% if  app.user.roles !=['ROLE_EMPLOYER'] %}
+                                    <li>
+
+                                            EMPLOYEUR
+
+                                    </li>
+                                    {% else %}
+                                        <li>
+
+                                            EMPLOYER
+
+                                        </li>
+
+                                {% endif %}
+                                {% endif %}
                             </ul>
                         </li>
                         <li>
@@ -180,29 +214,105 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right float-right">
+                        <style>
+                            .img {
+                                width: 50px;
+                                height: 50px;
+                                background-size: cover;
+                                display: block;
+                                border-radius: 100px;
+                                -webkit-border-radius: 100px;
+                                -moz-border-radius: 100px;
+                            }
+                            .profile-option{
+                                width: 50px;
+                                height: 50px;
+
+                                right: 50px;
+                                top: 50px ;
+                                transform: translateY(-50%);
+                                border-radius: 50%;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                cursor: pointer;
+                                transition: all .5s ease-in-out;
+                                outline: none;
+                            }
+                            .profile-option .notification{
+
+                                font-size: 1.2rem;
+                                transition: all .5s ease-in-out;
+                            }
+                            .profile-option:hover{
+                                background:black;
+                                border: 1px solid var(--color);
+                            }
+                            .profile-option:hover .notification{
+                                color: var(--color);
+                            }
+                            .profile-option .notification .alert-message{
+                                position: absolute;
+                                top: -5px;
+                                right: -5px;
+                                background: red;
+                                color: var(--color);
+                                border: 1px solid;
+                                padding: 5px;
+                                border-radius: 50%;
+                                height: 20px;
+                                width: 20px;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                font-size: -8rem;
+                                mso-font-width: bold;
+
+                            }
+
+                        </style>
                         {% if app.user %}
-                            <style>
-                                .img{
-                                    width: 50px;
-                                    height: 50px;
-                                    background-size: cover;
-                                    display: block;
-                                    border-radius: 100px;
-                                    -webkit-border-radius: 100px;
-                                    -moz-border-radius: 100px;
-                                }
-                            </style>
-                            <li class="left"><a herf="{{ path('employer_profile') }}"> {{ app.user.name }}</a></li>
-                        <li class="left"><a href="{{ path('app_logout') }}"><i class="icon-logout"></i>  Log out</a></li>
-                        <li class="left"><a href="{{ path('Envoyer_Mail') }}"><i class="icon-logout"></i>  MAIL</a></li>
-                        <li><a herf="{{ path('employer_profile') }}"><img src="{{ asset("assets/img/") }}{{app.user.img}}" alt="" class="img"></a></li>
+                            <li class="left"><a href="{{ path('app_logout') }}"><i class="icon-logout"></i>  Log out</a></li>
+
+                            {% if app.user.roles != ['ROLE_EMPLOYER']  %}
 
 
-                        <li class="left"><a href="{{ path('liste') }}"><i class="ti-pencil-alt"></i> Post A Job</a></li>
+
+                                <li class="left"><a href="{{ path('employeur_profile') }}"><i class="icon-logout"></i>  {{ app.user.nom }}</a></li>
+
+
+                                    <li class="left"><a href="{{ path('Envoyer_Mail') }}"><i class="icon-logout"></i>  MAIL</a></li>
+
+                                    <li class="left"><a href="{{ path('liste') }}"><i class="ti-pencil-alt"></i> Post A Job</a></li>
+                                <li class="left"></li>
+                                <li class="left"></li>
+                                <li class="left"></li>
+
+                                <li class="left">
+                                    <div class="profile-option">
+                                        <div class="notification">
+                                           <img src="{{ asset("assets/img/") }}{{app.user.logo}}" alt="" class="img">
+                                           <span class="alert-message">{{ app.user.notif }}</span>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                {% elseif app.user.roles != ['ROLE_EMPLOYEUR']  %}
+
+
+
+                                    <li class="left"><a href="{{ path('employer_profile') }}"><i class="icon-logout"></i>  {{ app.user.name }}</a></li>
+                                    <li class="left"><a href="{{ path('Envoyer_Mail') }}"><i class="icon-logout"></i>  MAIL</a></li>
+                                    <li><a herf="{{ path('employer_profile') }}"><img src="{{ asset("assets/img/") }}{{app.user.img}}" alt="" class="img"></a></li>
+
                         {% endif %}
-                        {% if not app.user %}
-                        <li class="right"><a href="{{ path('app_login') }}"><i class="ti-lock"></i>  Log In</a></li>
+
+                        {% elseif not app.user %}
+                            <li class="right"><a href="{{ path('app_login') }}"><i class="ti-lock"></i>  Log In</a></li>
                         {% endif %}
+
+
+
                     </ul>
                 </div>
             </div>
@@ -243,8 +353,8 @@
                 <li>
                     <a class="active" href="#">For Employers</a>
                     <ul>
-                        <li><a class="active" href="post-job.html">Add Job</a></li>
-                        <li><a href="manage-jobs.html">Manage Jobs</a></li>
+                        <li><a class="active" href="post-job.html">Employer</a></li>
+                        <li><a href="manage-jobs.html">Employeur</a></li>
                         <li><a href="manage-applications.html">Manage Applications</a></li>
                         <li><a href="browse-resumes.html">Browse Resumes</a></li>
                     </ul>

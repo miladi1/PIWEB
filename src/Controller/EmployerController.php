@@ -6,6 +6,8 @@ use App\Entity\Employer;
 
 use App\Form\EmployerType;
 use App\Repository\EmployerRepository;
+use App\Repository\EvenementRepository;
+use App\Repository\OpportuniteRepository;
 use Doctrine\DBAL\Types\TextType;
 use Doctrine\Persistence\ObjectManager;
 use phpDocumentor\Reflection\Types\Object_;
@@ -14,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -120,7 +123,7 @@ class EmployerController extends AbstractController
             $entityManager->persist($employer);
             $entityManager->flush();
 
-            return $this->redirectToRoute('login');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('employer/new.html.twig', [
@@ -191,8 +194,9 @@ class EmployerController extends AbstractController
     /**
      * @Route("/mailling/employer", name="Envoyer_Mail")
      */
-    public function sendEmail(EmployerRepository $employerRepository,\Swift_Mailer $mailer): Response
+    public function sendEmail(EmployerRepository $employerRepository,EvenementRepository $evenementRepository,OpportuniteRepository $repository,\Swift_Mailer $mailer): Response
     {
+        $opp=$repository->findAll();
         $message = (new \Swift_Message('VERFICATION'))
             ->setFrom('masseoudi.amine99@gmail.com')
             ->setTo('masseoudi.amine99@gmail.com')
@@ -200,8 +204,8 @@ class EmployerController extends AbstractController
         ;
         $mailer->send($message) ;
 
-        return $this->render('employer/index.html.twig', [
-            'employers' => $employerRepository->findAll(),
+        return $this->render('home/index.html.twig', [
+            'employers' => $employerRepository->findAll(),'evenements' => $evenementRepository->findAll(),'can'=>$opp
         ]);
     }
     /**
@@ -268,5 +272,22 @@ class EmployerController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/{id}", name="employer_supp", methods={"supp"})
+     */
+    public function supp(Request $request, Employer $employer,TokenStorageInterface $tokenStorage): Response
+    {
+        if ($this->isCsrfTokenValid('supp' . $employer->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($employer);
+            $entityManager->flush();
+            $tokenStorage->setToken(null);
+            $this->get('session')->invalidate();
+        }
+
+        return $this->redirectToRoute('home');
+    }
+
 
 }

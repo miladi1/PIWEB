@@ -60,7 +60,8 @@
                             </div>
                             <div class="pull-right">
                                 <div class="icon">
-                                    <i class="ti-heart">{{ publication.likes }}</i>
+                                    <a href="{{ path('pub_add', {'id': publication.id}) }}"><i class="ti-heart"></i> {{ publication.likes }}</a>
+
                                 </div>
 
                             </div>
@@ -70,12 +71,14 @@
                                 <input type="hidden" name="id_pub" value="{{ publication.id }}">
                                 <input class="btn btn-common btn-rm" name="submit" type="submit" value="Commente">
                             </form>
+
                         </div>
                     </div>
                 </div>
                 {% endfor %}
-                {{ knp_pagination_render(publications) }}
+
              <ul> <li> <a href="{{ path('publication_new') }}">Create new</a></li></ul>
+                {{ knp_pagination_render(publications) }}
                 <!-- Start Pagination -->
 
 

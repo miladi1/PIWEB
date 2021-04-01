@@ -66,7 +66,11 @@
             <h2 class="section-title">Hot events</h2>
             <div class="row">
                 <div class="col-md-12">
+                    {% if app.user %}
+                    {% if app.user.roles != ['ROLE_EMPLOYEUR']  %}
+                    <div class="pull-right">
                     {% for evenement in evenements %}
+
                         {% if evenement.photo %}
                             <div class="job-list">
                                 <div class="thumb">
@@ -83,25 +87,125 @@
 
                                             </div>
                                         </div>
-                                        {% if app.user %}
-                                            <div class="pull-right">
 
-                                                <a href="{{ path('participer',{'id': evenement.id }) }}" class="btn btn-common btn-rm">Participer</a>
 
-                                            </div>
-                                        {% endif %}
-                                        {% if not app.user %}
-                                            <li class="right"><a href="{{ path('app_login') }}"><i class="ti-lock"></i>  participer</a></li>
-                                        {% endif %}
+
+
+
+
+
+
+                                                    <a href="{{ path('participer',{'id': evenement.id }) }}" class="btn btn-common btn-rm">Participer</a>
                                     </div>
                                 </div>
                             </div>
-                        {% endif %}
-                    {% endfor %}
+                                        {% endif %}
+                                        {% endfor %}
+                        {% elseif app.user.roles != ['ROLE_EMPLOYER']  %}
+                            {% for evenement in eventi %}
+
+                            {% if evenement.photo %}
+                                <div class="job-list">
+                                    <div class="thumb">
+                                        <img src="/images/products/{{ evenement.photo }}" alt="" >
+                                    </div>
+                                    <div class="job-list-content">
+                                        <h4><a href="job-details.html">{{ evenement.titre }}</a></h4>
+                                        <p>{{ evenement.description }}</p>
+                                        <p>date start : {{ evenement.dateStart ? evenement.dateStart|date('Y-m-d H:i:s') : '' }}  , date end : {{ evenement.dateEnd ? evenement.dateEnd|date('Y-m-d H:i:s') : '' }}</p>
+                                        <div class="job-tag">
+                                            <div class="pull-left">
+                                                <div class="meta-tag">
+                                                    <span><a href="{{ path('participer',{'id': evenement.id }) }}"><i class="ti-brush"></i>{{ evenement.nombrePar }}</a></span>
+
+                                                </div>
+                                            </div>
+
+
+
+                                            <a href="{{ path('evenement_edit', {'id': evenement.id}) }}">edit</a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+
+                            {% endif %}
+
+
+                            {% endfor %}
+
+
+
+
+
+                                                {% endif %}
+
+
+
+
+                                        {% endif %}
+                                        {% if not app.user %}
+                    {% for evenement in evenements %}
+                    {% if evenement.photo %}
+                    <div class="job-list">
+                        <div class="thumb">
+                            <img src="/images/products/{{ evenement.photo }}" alt="" >
+                        </div>
+                        <div class="job-list-content">
+                            <h4><a href="job-details.html">{{ evenement.titre }}</a></h4>
+                            <p>{{ evenement.description }}</p>
+                            <p>date start : {{ evenement.dateStart ? evenement.dateStart|date('Y-m-d H:i:s') : '' }}  , date end : {{ evenement.dateEnd ? evenement.dateEnd|date('Y-m-d H:i:s') : '' }}</p>
+                            <div class="job-tag">
+                                <div class="pull-left">
+                                    <div class="meta-tag">
+                                        <span><a href="{{ path('participer',{'id': evenement.id }) }}"><i class="ti-brush"></i>{{ evenement.nombrePar }}</a></span>
+
+                                    </div>
+                                </div>
+
+
+
+                                <li class="right"><a href="{{ path('app_login') }}"><i class="ti-lock"></i>  participer</a></li>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
+                {% endif %}
+                {% endfor %}
 
-            </div>
-        </div>
+                                        {% endif %}
+
+
+                </div>
+                {% if app.user %}
+
+
+
+
+
+
+                        {% if app.user.roles != ['ROLE_EMPLOYER']  %}
+                            <a href="{{ path('evenement_new') }}">Create new</a><br>
+                            <br>
+
+                        {% endif %}
+
+
+
+
+                {% endif %}
+                {% if not app.user %}
+
+                {% endif %}
+
+
+
+            {{ knp_pagination_render(evenements) }}
+    </div>
+
+
 
 {% endblock %}

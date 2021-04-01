@@ -1,8 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in Employeur!{% endblock %}
+{% block title %}Log in!{% endblock %}
 
 {% block content %}
+    <br>
+    <br>
 <form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -16,9 +18,9 @@
     <br>
     <br>
 
-  <center>  <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1> </center>
-    <label for="inputAdresse">Adresse</label>
-    <input type="text" value="{{ last_username }}" name="adresse" id="inputAdresse" class="form-control" required autofocus>
+  <center> <h1 class="h3 mb-3 font-weight-normal">Please Log In</h1></center>
+    <label for="inputMail">Mail</label>
+    <input type="text" value="{{ last_username }}" name="mail" id="inputMail" class="form-control" required autofocus>
     <label for="inputPassword">Password</label>
     <input type="password" name="password" id="inputPassword" class="form-control" required>
 
@@ -36,10 +38,10 @@
             </label>
         </div>
     #}
-
-  <center>  <button class="btn btn-lg btn-primary" type="submit">
-        Log In
+<center>
+    <button class="btn btn-lg btn-primary" type="submit">
+        Sign in
     </button>
-  </center>
+</center>
 </form>
 {% endblock %}

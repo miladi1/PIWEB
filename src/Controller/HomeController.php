@@ -11,9 +11,11 @@ use App\Form\ParticipationType;
 
 use App\Repository\CategoryPublicationRepository;
 use App\Repository\EmployerRepository;
+use App\Repository\EmployeurRepository;
 use App\Repository\EvenementRepository;
 use App\Repository\OpportuniteRepository;
 use App\Repository\ParticipationRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use phpDocumentor\Reflection\Types\This;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,12 +39,23 @@ class HomeController extends AbstractController
     /**
      * @Route("/event", name="event")
      */
-    public function index2(EvenementRepository $evenementRepository): Response
+    public function index2(Request $request,EvenementRepository $evenementRepository,EmployeurRepository $er,PaginatorInterface $paginator): Response
     {
+        $donnees = $this->getDoctrine()->getRepository(Evenement::class)->findAll();
+        $evenements = $paginator->paginate(
+            $donnees, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            6 // Nombre de résultats par page
+        );
+        if ($this->getUser())
+        {
+        $emp = $er->find($this->getUser()->getId());
 
-
+        $eventi = $evenementRepository->SearchByEmp($emp);
         return $this->render('home/index2.html.twig', [
-            'evenements' => $evenementRepository->findAll()]);
+            'evenements' => $evenements,'eventi' => $eventi]);}
+        else return $this->render('home/index2.html.twig', [
+            'evenements' => $evenements]);
     }
     /**
      * @Route("/admin", name="admin")

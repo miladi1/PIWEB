@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Employeur{% endblock %}
+
+{% block content %}
+    <br>
+    <br><br>
+    <br>
+    <h1>Edit </h1>
+
+    {{ include('employeur/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('employeur_profile') }}">back</a>
+
+
+{% endblock %}

@@ -18,7 +18,6 @@ class Evenement1Type extends AbstractType
             ->add('date_end')
             ->add('nombrePar')
             ->add('description')
-            ->add('employeurEvent')
             ->add('type')
             ->add('imageFile', FileType::class, array('required'=>false))
 

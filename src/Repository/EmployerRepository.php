@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Employer;
+use App\Entity\Employeur;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -37,6 +38,7 @@ class EmployerRepository extends ServiceEntityRepository
             ->orderBy('employer.name ','DESC')
             ->getQuery()->getResult();
     }
+
 
     // /**
     //  * @return Employer[] Returns an array of Employer objects

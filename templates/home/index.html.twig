@@ -150,10 +150,22 @@
 
                                         </div>
                                     </div>
-                        {% if app.user %}
+
+
+                                    {% if app.user %}
                                     <div class="pull-right">
 
-                                        <a href="{{ path('participer',{'id': evenement.id }) }}" class="btn btn-common btn-rm">Participer</a>
+
+
+
+
+                                        {% if app.user.roles != ['ROLE_EMPLOYEUR']  %}
+                                            <a href="{{ path('participer',{'id': evenement.id }) }}" class="btn btn-common btn-rm">Participer</a>
+
+
+                                        {% endif %}
+
+
 
                                     </div>
                         {% endif %}
